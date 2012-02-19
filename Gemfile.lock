@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    easy_auth (0.0.1)
+    easy_auth (0.0.1.alpha.0)
       rails (~> 3.2.1)
 
 GEM
