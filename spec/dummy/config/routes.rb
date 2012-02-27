@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  easy_auth_routes
 
-  mount EasyAuth::Engine => "/easy_auth"
+  get '/dashboard' => 'dashboard#show', :as => :dashboard
 end
