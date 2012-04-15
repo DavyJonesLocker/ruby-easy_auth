@@ -2,6 +2,7 @@ module EasyAuth
   class Identity < ActiveRecord::Base
     belongs_to :account, :polymorphic => true
     has_secure_password
+    attr_accessible :email, :password, :password_confirmation
 
     def self.authenticate(attributes = nil)
       return nil if attributes.nil?
