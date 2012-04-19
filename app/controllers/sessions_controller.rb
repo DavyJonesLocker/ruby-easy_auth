@@ -18,7 +18,7 @@ class SessionsController < ::ApplicationController
   def after_successfull_sign_in(identity)
     redirect_to identity.account
   end
-  
+
   def after_failed_sign_in(identity)
     render :action => :new
   end

@@ -6,8 +6,8 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'valid_attribute'
 require 'factory_girl_rails'
+require 'debugger'
 require 'bourne'
-require 'pry'
 
 ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 

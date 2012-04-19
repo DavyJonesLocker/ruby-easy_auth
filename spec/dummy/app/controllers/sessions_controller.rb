@@ -4,7 +4,7 @@ class SessionsController
 
   private
 
-  def after_sign_in_path_for(resource)
-    main_app.dashboard_path
+  def after_successfull_sign_in(identity)
+    redirect_to main_app.dashboard_path
   end
 end
