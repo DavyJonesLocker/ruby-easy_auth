@@ -6,16 +6,20 @@ class SessionsController < ::ApplicationController
   def create
     if identity = EasyAuth::Identity.authenticate(params[:identity])
       session[:identity_id] = identity.id
-      redirect_to after_sign_in_path_for(identity.account)
+      after_successfull_sign_in(identity)
     else
       @identity = EasyAuth::Identity.new(params[:identity])
-      render :action => :new
+      after_failed_sign_in(@identity)
     end
   end
 
   private
 
-  def after_sign_in_path_for(resource)
-    resource
+  def after_successfull_sign_in(identity)
+    redirect_to identity.account
+  end
+  
+  def after_failed_sign_in(identity)
+    render :action => :new
   end
 end
