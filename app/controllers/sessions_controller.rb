@@ -13,6 +13,11 @@ class SessionsController < ::ApplicationController
     end
   end
 
+  def destroy
+    session.delete(:identity_id)
+    after_sign_out
+  end
+
   private
 
   def after_successfull_sign_in(identity)
@@ -21,5 +26,9 @@ class SessionsController < ::ApplicationController
 
   def after_failed_sign_in(identity)
     render :action => :new
+  end
+
+  def after_sign_out
+    redirect_to main_app.root_path
   end
 end

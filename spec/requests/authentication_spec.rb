@@ -18,4 +18,11 @@ feature 'Authentication' do
 
     current_path.should eq sign_in_path
   end
+
+  scenario 'signing out' do
+    sign_in_with(create(:user))
+
+    visit sign_out_path
+    current_path.should eq root_path
+  end
 end
