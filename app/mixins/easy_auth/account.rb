@@ -17,6 +17,7 @@ module EasyAuth
 
         attr_accessor :password
         validates :password, :presence => { :on => :create }, :confirmation => true
+        attr_accessible :password, :password_confirmation
         validates easy_auth_username, :presence => true
       end
     end
