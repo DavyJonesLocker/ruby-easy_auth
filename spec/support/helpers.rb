@@ -6,4 +6,5 @@ def sign_in_with(account)
 
   current_path.should eq dashboard_path
   page.should have_content account.email
+  account
 end

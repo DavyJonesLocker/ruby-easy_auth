@@ -25,4 +25,20 @@ feature 'Authentication' do
     visit sign_out_path
     current_path.should eq root_path
   end
+
+  scenario 'updating the account should update the identity' do
+    user = create(:user)
+    user.update_attributes(:email => 'changed@example.com', :password => 'changed_password', :password_confirmation => 'changed_password')
+    sign_in_with(user)
+  end
+
+  scenario 'partially updating the account should update the identity' do
+    create(:user)
+    # ensure we clear the attr accessors
+    user = User.last
+    user.update_attributes(:email => 'changed@example.com')
+    user.password              = 'password'
+    user.password_confirmation = 'password'
+    sign_in_with(user)
+  end
 end
