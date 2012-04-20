@@ -4,7 +4,7 @@ feature 'Authentication' do
   scenario 'with valid attributes' do
     create(:user)
     visit sign_in_path
-    fill_in 'Email', :with => 'test@example.com'
+    fill_in 'Username', :with => 'test@example.com'
     fill_in 'Password', :with => 'password'
     click_button 'Submit'
 

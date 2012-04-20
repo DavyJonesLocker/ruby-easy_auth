@@ -6,7 +6,7 @@ FactoryGirl.define do
   end
 
   factory :identity, :class => EasyAuth::Identity do
-    email                 'test@example.com'
+    username              'test@example.com'
     password              'password'
     password_confirmation 'password'
   end

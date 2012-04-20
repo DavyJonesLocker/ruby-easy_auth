@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20120227014023) do
 
   create_table "easy_auth_identities", :force => true do |t|
-    t.string   "email"
+    t.string   "username"
     t.string   "password_digest"
     t.string   "account_type"
     t.integer  "account_id"

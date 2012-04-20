@@ -1,6 +1,6 @@
 def sign_in_with(account)
   visit sign_in_path
-  fill_in 'Email', :with => account.email
+  fill_in 'Username', :with => account.email
   fill_in 'Password', :with => account.password
   click_button 'Submit'
 

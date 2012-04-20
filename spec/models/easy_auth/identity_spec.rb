@@ -2,21 +2,21 @@ require 'spec_helper'
 
 describe EasyAuth::Identity do
    describe '.authenticate' do
-    context 'correct email and password' do
+    context 'correct username and password' do
       before { create(:identity) }
       it 'returns the user' do
-        EasyAuth::Identity.authenticate(:email => 'test@example.com', :password => 'password').should be_instance_of EasyAuth::Identity
+        EasyAuth::Identity.authenticate(:username => 'test@example.com', :password => 'password').should be_instance_of EasyAuth::Identity
       end
     end
-    context 'correct email bad password' do
+    context 'correct username bad password' do
       before { create(:identity) }
       it 'returns nil' do
-        EasyAuth::Identity.authenticate(:email => 'test@example.com', :password => 'bad').should be_nil
+        EasyAuth::Identity.authenticate(:username => 'test@example.com', :password => 'bad').should be_nil
       end
     end
-    context 'bad email and password' do
+    context 'bad username and password' do
       it 'returns nil' do
-        EasyAuth::Identity.authenticate(:email => 'bad@example.com', :password => 'bad').should be_nil
+        EasyAuth::Identity.authenticate(:username => 'bad@example.com', :password => 'bad').should be_nil
       end
     end
     context 'no attributes given' do
