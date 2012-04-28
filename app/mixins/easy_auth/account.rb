@@ -1,15 +1,22 @@
 module EasyAuth
   module Account
+    class NoIdentityUsernameError < StandardError; end
     def self.included(base)
       base.class_eval do
-        unless respond_to?(:easy_auth_username)
-          def self.easy_auth_username
-            :username
+        unless respond_to?(:identity_username_attribute)
+          def self.identity_username_attribute
+            if column_names.include?('username')
+              :username
+            elsif column_names.include?('email')
+              :email
+            else
+              raise EasyAuth::Account::NoIdentityUsernameError, 'your model must have either a #username or #email attribute. Or you must override the .identity_username_attribute class method'
+            end
           end
         end
 
-        def easy_auth_username
-          self.send(self.class.easy_auth_username)
+        def identity_username_attribute
+          self.send(self.class.identity_username_attribute)
         end
 
         has_one :identity, :class_name => 'EasyAuth::Identity', :as => :account
@@ -19,7 +26,7 @@ module EasyAuth
         attr_accessor :password
         validates :password, :presence => { :on => :create }, :confirmation => true
         attr_accessible :password, :password_confirmation
-        validates easy_auth_username, :presence => true
+        validates identity_username_attribute, :presence => true
       end
     end
 
@@ -34,7 +41,7 @@ module EasyAuth
     end
 
     def identity_attributes
-      { :username => self.easy_auth_username, :password => self.password, :password_confirmation => self.password_confirmation }
+      { :username => self.identity_username_attribute, :password => self.password, :password_confirmation => self.password_confirmation }
     end
   end
 end
