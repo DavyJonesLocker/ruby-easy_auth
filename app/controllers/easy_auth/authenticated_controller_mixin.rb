@@ -1,5 +1,7 @@
-class EasyAuth::AuthenticatedController < ::ApplicationController
-  before_filter :attempt_to_authenticate
+module EasyAuth::AuthenticatedControllerMixin
+  def self.included(base)
+    base.before_filter :attempt_to_authenticate
+  end
 
   private
 

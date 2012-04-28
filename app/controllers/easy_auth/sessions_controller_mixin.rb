@@ -1,4 +1,4 @@
-class EasyAuth::SessionsController < ::ApplicationController
+module EasyAuth::SessionsControllerMixin
   def new
     @identity = EasyAuth::Identity.new
   end

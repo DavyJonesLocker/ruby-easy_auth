@@ -1,2 +1,3 @@
-class AuthenticatedController < EasyAuth::AuthenticatedController
+class AuthenticatedController < ApplicationController
+  include EasyAuth::AuthenticatedControllerMixin
 end
