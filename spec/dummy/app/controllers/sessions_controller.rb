@@ -1,10 +1,8 @@
-EasyAuth::Engine.require_dependency('sessions_controller')
-
-class SessionsController
+class SessionsController < EasyAuth::SessionsController
 
   private
 
-  def after_successfull_sign_in(identity)
-    redirect_to main_app.dashboard_path
+  def after_successfull_sign_in_path(identity)
+    main_app.dashboard_path
   end
 end

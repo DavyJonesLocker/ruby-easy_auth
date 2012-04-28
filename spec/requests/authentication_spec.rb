@@ -42,3 +42,18 @@ feature 'Authentication' do
     sign_in_with(user)
   end
 end
+
+feature 'Unauthenticated' do
+  scenario 'accessing a page that requires authentication when account is already created' do
+    user = create(:user)
+
+    visit profile_path
+
+    fill_in 'Username', :with => user.email
+    fill_in 'Password', :with => user.password
+    click_button 'Submit'
+
+    page.should have_content 'My profile'
+  end
+
+end
