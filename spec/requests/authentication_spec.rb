@@ -55,5 +55,4 @@ feature 'Unauthenticated' do
 
     page.should have_content 'My profile'
   end
-
 end
