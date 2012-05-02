@@ -8,7 +8,12 @@ module EasyAuth
 
     def current_account
       if session[:identity_id]
-        @current_account ||= EasyAuth::Identity.find(session[:identity_id]).account
+        begin
+          @current_account ||= EasyAuth::Identity.find(session[:identity_id]).account
+        rescue
+          @current_account = nil
+          session.delete(:identity_id)
+        end
       end
 
       @current_account
