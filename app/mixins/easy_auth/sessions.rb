@@ -6,7 +6,7 @@ module EasyAuth::Sessions
   def create
     if identity = EasyAuth::Identity.authenticate(params[:identity])
       session[:identity_id] = identity.id
-      after_successfull_sign_in(identity)
+      after_successful_sign_in(identity)
     else
       @identity = EasyAuth::Identity.new(params[:identity])
       after_failed_sign_in(@identity)
@@ -20,11 +20,11 @@ module EasyAuth::Sessions
 
   private
 
-  def after_successfull_sign_in(identity)
-    redirect_to session.delete(:requested_path) || after_successfull_sign_in_path(identity)
+  def after_successful_sign_in(identity)
+    redirect_to session.delete(:requested_path) || after_successful_sign_in_path(identity)
   end
 
-  def after_successfull_sign_in_path(identity)
+  def after_successful_sign_in_path(identity)
     identity.account
   end
 
