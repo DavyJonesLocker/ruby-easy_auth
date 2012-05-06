@@ -19,10 +19,19 @@ module EasyAuth
       PasswordResetMailer.reset(self.id).deliver
     end
 
+    def generate_session_token!
+      self.update_attribute(:session_token, _generate_session_token)
+      self.session_token
+    end
+
     private
 
     def _generate_reset_token
       Digest::SHA1.hexdigest("#{id}-password_reset-#{DateTime.current}")
+    end
+
+    def _generate_session_token
+      Digest::SHA1.hexdigest("#{id}-session_token-#{DateTime.current}")
     end
   end
 end

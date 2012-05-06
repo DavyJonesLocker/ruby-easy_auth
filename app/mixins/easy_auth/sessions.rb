@@ -5,7 +5,7 @@ module EasyAuth::Sessions
 
   def create
     if identity = EasyAuth::Identity.authenticate(params[:identity])
-      session[:identity_id] = identity.id
+      session[:session_token] = identity.generate_session_token!
       after_successful_sign_in(identity)
     else
       @identity = EasyAuth::Identity.new(params[:identity])
@@ -14,7 +14,7 @@ module EasyAuth::Sessions
   end
 
   def destroy
-    session.delete(:identity_id)
+    session.delete(:session_token)
     after_sign_out
   end
 
