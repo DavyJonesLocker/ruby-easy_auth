@@ -38,7 +38,8 @@ module EasyAuth::PasswordReset
   end
 
   def after_successful_password_reset(identity)
-    session[:session_token] = @identity.generate_session_token!
+    session[:session_token] = identity.generate_session_token!
+    identity.update_attribute(:reset_token, nil)
     redirect_to after_successful_password_reset_path(identity)
   end
 
