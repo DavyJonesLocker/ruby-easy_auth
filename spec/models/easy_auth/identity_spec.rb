@@ -26,6 +26,16 @@ describe EasyAuth::Identity do
     end
   end
 
+  describe '#generate_session_token!' do
+    it 'sets a unique session token' do
+      identity = create(:identity, :account => build(:user))
+      identity.session_token.should be_nil
+      identity.generate_session_token!
+      identity = EasyAuth::Identity.last
+      identity.session_token.should_not be_nil
+    end
+  end
+
   describe '#password_reset' do
     it 'sets a unique reset token' do
       identity = create(:identity, :account => build(:user))
