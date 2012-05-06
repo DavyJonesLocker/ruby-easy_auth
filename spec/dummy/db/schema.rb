@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20120227014023) do
     t.string   "password_digest"
     t.string   "account_type"
     t.integer  "account_id"
+    t.string   "reset_token"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end

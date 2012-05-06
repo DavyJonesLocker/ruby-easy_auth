@@ -47,6 +47,7 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    capybara-email (0.1.2)
     childprocess (0.3.1)
       ffi (~> 1.0.6)
     columnize (0.3.6)
@@ -149,6 +150,7 @@ PLATFORMS
 DEPENDENCIES
   bourne
   capybara
+  capybara-email
   debugger
   easy_auth!
   factory_girl_rails

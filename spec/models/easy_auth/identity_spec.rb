@@ -25,4 +25,14 @@ describe EasyAuth::Identity do
       end
     end
   end
+
+  describe '#password_reset' do
+    it 'sets a unique reset token' do
+      identity = create(:identity, :account => build(:user))
+      identity.reset_token.should be_nil
+      identity.password_reset
+      identity = EasyAuth::Identity.last
+      identity.reset_token.should_not be_nil
+    end
+  end
 end

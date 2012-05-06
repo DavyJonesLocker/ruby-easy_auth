@@ -13,5 +13,16 @@ module EasyAuth
         nil
       end
     end
+
+    def password_reset
+      update_attribute(:reset_token, _generate_reset_token)
+      PasswordResetMailer.reset(self.id).deliver
+    end
+
+    private
+
+    def _generate_reset_token
+      Digest::SHA1.hexdigest("#{id}-password_reset-#{DateTime.current}")
+    end
   end
 end
