@@ -21,7 +21,7 @@ module EasyAuth::Sessions
   private
 
   def after_successful_sign_in(identity)
-    redirect_to session.delete(:requested_path) || after_successful_sign_in_path(identity)
+    redirect_to session.delete(:requested_path) || after_successful_sign_in_path(identity), :notice => I18n.t('easy_auth.sessions.create.notice')
   end
 
   def after_successful_sign_in_path(identity)
@@ -29,10 +29,11 @@ module EasyAuth::Sessions
   end
 
   def after_failed_sign_in(identity)
+    flash.now[:error] = I18n.t('easy_auth.sessions.create.error')
     render :new
   end
 
   def after_sign_out
-    redirect_to main_app.root_path
+    redirect_to main_app.root_path, :notice => I18n.t('easy_auth.sessions.delete.notice')
   end
 end

@@ -1,0 +1,14 @@
+en:
+  easy_auth:
+    sessions:
+      create:
+        notice: 'You have been signed in.'
+        error: 'Could not sign you in. Please check your credentials.'
+      delete:
+        notice: 'You have been signed out.'
+    password_reset:
+      create:
+        notice: 'Please check your email for your password reset link.'
+      update:
+        notice: 'Your password has been updated.'
+        error: 'There was an issue updating your password.'

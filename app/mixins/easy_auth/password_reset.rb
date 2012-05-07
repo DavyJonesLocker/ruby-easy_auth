@@ -16,6 +16,7 @@ module EasyAuth::PasswordReset
       @identity = EasyAuth::Identity.new(params[:identity])
     end
 
+    flash.now[:notice] = I18n.t('easy_auth.password_reset.create.notice')
     render :new
   end
 
@@ -40,7 +41,7 @@ module EasyAuth::PasswordReset
   def after_successful_password_reset(identity)
     session[:session_token] = identity.generate_session_token!
     identity.update_attribute(:reset_token, nil)
-    redirect_to after_successful_password_reset_path(identity)
+    redirect_to after_successful_password_reset_path(identity), :notice => I18n.t('easy_auth.password_reset.update.notice')
   end
 
   def after_successful_password_reset_path(identity)
@@ -48,6 +49,7 @@ module EasyAuth::PasswordReset
   end
 
   def after_failed_password_reset(identity)
-    render :action => :new
+    flash.now[:error] = I18n.t('easy_auth.password_reset.update.error')
+    render :new
   end
 end
