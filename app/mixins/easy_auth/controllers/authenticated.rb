@@ -1,4 +1,4 @@
-module EasyAuth::Authenticated
+module EasyAuth::Controllers::Authenticated
   def self.included(base)
     base.before_filter :attempt_to_authenticate
   end

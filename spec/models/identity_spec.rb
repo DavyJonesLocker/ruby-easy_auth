@@ -1,27 +1,27 @@
 require 'spec_helper'
 
-describe EasyAuth::Identity do
+describe Identity do
    describe '.authenticate' do
     context 'correct username and password' do
       before { create(:identity) }
       it 'returns the user' do
-        EasyAuth::Identity.authenticate(:username => 'test@example.com', :password => 'password').should be_instance_of EasyAuth::Identity
+        Identity.authenticate(:username => 'test@example.com', :password => 'password').should be_instance_of Identity
       end
     end
     context 'correct username bad password' do
       before { create(:identity) }
       it 'returns nil' do
-        EasyAuth::Identity.authenticate(:username => 'test@example.com', :password => 'bad').should be_nil
+        Identity.authenticate(:username => 'test@example.com', :password => 'bad').should be_nil
       end
     end
     context 'bad username and password' do
       it 'returns nil' do
-        EasyAuth::Identity.authenticate(:username => 'bad@example.com', :password => 'bad').should be_nil
+        Identity.authenticate(:username => 'bad@example.com', :password => 'bad').should be_nil
       end
     end
     context 'no attributes given' do
       it 'returns nil' do
-        EasyAuth::Identity.authenticate.should be_nil
+        Identity.authenticate.should be_nil
       end
     end
   end
@@ -31,7 +31,7 @@ describe EasyAuth::Identity do
       identity = create(:identity, :account => build(:user))
       identity.session_token.should be_nil
       identity.generate_session_token!
-      identity = EasyAuth::Identity.last
+      identity = Identity.last
       identity.session_token.should_not be_nil
     end
   end
@@ -41,7 +41,7 @@ describe EasyAuth::Identity do
       identity = create(:identity, :account => build(:user))
       identity.reset_token.should be_nil
       identity.password_reset
-      identity = EasyAuth::Identity.last
+      identity = Identity.last
       identity.reset_token.should_not be_nil
     end
   end

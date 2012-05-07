@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EasyAuth::Account do
+describe EasyAuth::Models::Account do
   after do
     Object.send(:remove_const, :TestUser)
   end
@@ -19,7 +19,7 @@ describe EasyAuth::Account do
     context 'when only #username is defined' do
       before do
         TestUser.stubs(:column_names).returns(['username'])
-        TestUser.instance_eval { include(EasyAuth::Account) }
+        TestUser.instance_eval { include(EasyAuth::Models::Account) }
       end
 
       it 'relies upon #username' do
@@ -30,7 +30,7 @@ describe EasyAuth::Account do
     context 'when only #email is defined' do
       before do
         TestUser.stubs(:column_names).returns(['email'])
-        TestUser.instance_eval { include(EasyAuth::Account) }
+        TestUser.instance_eval { include(EasyAuth::Models::Account) }
       end
 
       it 'relies upon #username' do
@@ -41,7 +41,7 @@ describe EasyAuth::Account do
     context 'when both #username and #email are defined' do
       before do
         TestUser.stubs(:column_names).returns(['email', 'username'])
-        TestUser.instance_eval { include(EasyAuth::Account) }
+        TestUser.instance_eval { include(EasyAuth::Models::Account) }
       end
 
       it 'prefers #username over #email' do
@@ -56,8 +56,8 @@ describe EasyAuth::Account do
 
       it 'raises an Exception as no appropriate identity username attribute is available' do
         lambda {
-          TestUser.instance_eval { include(EasyAuth::Account) }
-        }.should raise_exception(EasyAuth::Account::NoIdentityUsernameError)
+          TestUser.instance_eval { include(EasyAuth::Models::Account) }
+        }.should raise_exception(EasyAuth::Models::Account::NoIdentityUsernameError)
       end
     end
   end

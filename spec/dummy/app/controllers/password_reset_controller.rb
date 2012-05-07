@@ -1,5 +1,5 @@
 class PasswordResetController < ApplicationController
-  include EasyAuth::PasswordReset
+  include EasyAuth::Controllers::PasswordReset
 
   private
 

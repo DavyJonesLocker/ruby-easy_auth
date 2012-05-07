@@ -1,14 +1,14 @@
-module EasyAuth::Sessions
+module EasyAuth::Controllers::Sessions
   def new
-    @identity = EasyAuth::Identity.new
+    @identity = EasyAuth.identity_model.new
   end
 
   def create
-    if identity = EasyAuth::Identity.authenticate(params[:identity])
+    if identity = EasyAuth.identity_model.authenticate(params[:identity])
       session[:session_token] = identity.generate_session_token!
       after_successful_sign_in(identity)
     else
-      @identity = EasyAuth::Identity.new(params[:identity])
+      @identity = EasyAuth.identity_model.new(params[:identity])
       after_failed_sign_in(@identity)
     end
   end

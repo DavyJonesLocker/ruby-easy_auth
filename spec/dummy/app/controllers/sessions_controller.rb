@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  include EasyAuth::Sessions
+  include EasyAuth::Controllers::Sessions
 
   private
 
