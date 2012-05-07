@@ -16,7 +16,7 @@ module EasyAuth::PasswordReset
       @identity = EasyAuth::Identity.new(params[:identity])
     end
 
-    render :action => :new
+    render :new
   end
 
   def update

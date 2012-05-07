@@ -29,7 +29,7 @@ module EasyAuth::Sessions
   end
 
   def after_failed_sign_in(identity)
-    render :action => :new
+    render :new
   end
 
   def after_sign_out
