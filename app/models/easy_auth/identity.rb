@@ -15,7 +15,7 @@ module EasyAuth
     end
 
     def password_reset
-      update_attribute(:reset_token, _generate_token(:reset))
+      update_attribute(:reset_token, URI.escape(_generate_token(:reset).gsub(/[\.|\\\/]/,'')))
       PasswordResetMailer.reset(self.id).deliver
     end
 
@@ -27,7 +27,7 @@ module EasyAuth
     private
 
     def _generate_token(type)
-      Digest::SHA1.hexdigest("#{id}-#{type}_token-#{DateTime.current}")
+      BCrypt::Password.create("#{id}-#{type}_token-#{DateTime.current}")
     end
   end
 end
