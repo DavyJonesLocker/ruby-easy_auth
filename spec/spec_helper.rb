@@ -7,7 +7,9 @@ require 'capybara/rspec'
 require 'capybara/email/rspec'
 require 'valid_attribute'
 require 'factory_girl_rails'
-require 'debugger'
+if RUBY_ENGINE == 'ruby' && RUBY_VERSION > '1.9'
+  require 'debugger'
+end
 require 'bourne'
 
 ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
