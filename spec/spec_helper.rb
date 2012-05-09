@@ -7,7 +7,7 @@ require 'capybara/rspec'
 require 'capybara/email/rspec'
 require 'valid_attribute'
 require 'factory_girl_rails'
-if RUBY_ENGINE == 'ruby' && RUBY_VERSION > '1.9'
+if RUBY_VERSION > '1.9' && RUBY_ENGINE == 'ruby'
   require 'debugger'
 end
 require 'bourne'
