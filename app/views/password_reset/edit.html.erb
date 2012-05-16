@@ -1,7 +1,13 @@
 <%= form_for @identity, :url => main_app.edit_password_path(params[:reset_token]) do |f| %>
-  <%= f.label :password %>
-  <%= f.text_field :password %>
-  <%= f.label :password_confirmation %>
-  <%= f.text_field :password_confirmation %>
-  <%= f.submit 'Submit' %>
+  <p>
+    <%= f.label :password %>
+    <%= f.text_field :password %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %>
+    <%= f.text_field :password_confirmation %>
+  </p>
+  <p>
+    <%= f.submit 'Submit' %>
+  </p>
 <% end %>
