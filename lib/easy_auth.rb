@@ -1,3 +1,4 @@
+require 'bcrypt'
 require 'easy_auth/engine'
 require 'easy_auth/routes'
 
