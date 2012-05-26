@@ -11,7 +11,7 @@ describe Identity do
         it { Identity.authenticate(:username => 'test@example.com', :password => 'password', :remember => true).remember.should be_true }
       end
       context 'without remember' do
-        it { Identity.authenticate(:username => 'test@example.com', :password => 'password').remember.should be_nil }
+        it { Identity.authenticate(:username => 'test@example.com', :password => 'password').remember.should be_false }
       end
     end
     context 'correct username bad password' do
@@ -53,24 +53,12 @@ describe Identity do
   end
 
   describe '#generate_remember_token' do
-    context 'remember_me is true' do
-      it 'sets a unique remember token' do
-        identity = create(:identity, :account => build(:user))
-        identity.remember = true
-        identity.remember_token.should be_nil
-        identity.generate_remember_token!
-        identity = Identity.last
-        identity.remember_token.should_not be_nil
-      end
-    end
-    context 'remember_me is false' do
-      it 'sets a unique remember token' do
-        identity = create(:identity, :account => build(:user))
-        identity.remember_token.should be_nil
-        identity.generate_remember_token!
-        identity = Identity.last
-        identity.remember_token.should be_nil
-      end
+    it 'sets a unique remember token' do
+      identity = create(:identity, :account => build(:user))
+      identity.remember_token.should be_nil
+      identity.generate_remember_token!
+      identity = Identity.last
+      identity.remember_token.should_not be_nil
     end
   end
 end

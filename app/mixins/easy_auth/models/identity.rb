@@ -3,7 +3,6 @@ module EasyAuth::Models::Identity
     base.class_eval do
       belongs_to :account, :polymorphic => true
       has_secure_password
-      attr_accessor   :remember
       attr_accessible :username, :password, :password_confirmation, :remember
 
       def self.authenticate(attributes = nil)
@@ -19,6 +18,14 @@ module EasyAuth::Models::Identity
     end
   end
 
+  def remember
+    @remember
+  end
+
+  def remember=(value)
+    @remember = ::ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+  end
+
   def password_reset
     update_attribute(:reset_token, URI.escape(_generate_token(:reset).gsub(/[\.|\\\/]/,'')))
     PasswordResetMailer.reset(self.id).deliver
@@ -30,12 +37,7 @@ module EasyAuth::Models::Identity
   end
 
   def generate_remember_token!
-    if remember
-      token = _generate_token(:remember)
-    else
-      token = nil
-    end
-    self.update_attribute(:remember_token, token)
+    self.update_attribute(:remember_token, _generate_token(:remember))
     self.remember_token
   end
 
