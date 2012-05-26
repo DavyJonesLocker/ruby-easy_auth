@@ -7,7 +7,7 @@ feature 'Remember Me' do
     visit sign_in_path
     fill_in 'Username', :with => 'test@example.com'
     fill_in 'Password', :with => 'password'
-    check 'Remember me'
+    check 'Remember for 1 year'
     click_button 'Submit'
     Capybara.session_name = :browser_2
     user.reload
@@ -29,7 +29,7 @@ feature 'Remember Me' do
     visit sign_in_path
     fill_in 'Username', :with => 'test@example.com'
     fill_in 'Password', :with => 'password'
-    check 'Remember me'
+    check 'Remember for 1 year'
     click_button 'Submit'
     visit sign_out_path
     Capybara.session_name = :browser_2

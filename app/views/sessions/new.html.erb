@@ -8,8 +8,8 @@
     <%= f.password_field :password %>
   </p>
   <p>
-    <%= f.label :remember_me %>
-    <%= f.check_box :remember_me %>
+    <%= f.label :remember, "Remember for #{@identity.remember_time.inspect}" %>
+    <%= f.check_box :remember %>
   </p>
   <p>
     <%= f.submit 'Submit' %>
