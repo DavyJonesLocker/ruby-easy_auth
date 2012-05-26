@@ -14,6 +14,16 @@ module EasyAuth
           @current_account = nil
           session.delete(:session_token)
         end
+      elsif cookies[:remember_token]
+        begin
+          @current_account ||= EasyAuth.identity_model.find_by_remember_token(cookies[:remember_token]).account
+        rescue
+          @current_acount = nil
+          cookies.delete(:remember_token)
+        end
+      else
+        session.delete(:session_token)
+        cookies.delete(:remember_token)
       end
 
       @current_account

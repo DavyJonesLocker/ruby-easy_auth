@@ -7,10 +7,11 @@ class CreateIdentities < ActiveRecord::Migration
       t.integer :account_id
       t.string  :reset_token
       t.string  :session_token
+      t.string  :remember_token
       t.timestamps
     end
 
-    [:username, :reset_token, :session_token].each do |column|
+    [:username, :reset_token, :remember_token, :session_token].each do |column|
       add_index :identities, column
     end
   end

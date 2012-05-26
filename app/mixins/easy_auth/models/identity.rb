@@ -3,12 +3,14 @@ module EasyAuth::Models::Identity
     base.class_eval do
       belongs_to :account, :polymorphic => true
       has_secure_password
-      attr_accessible :username, :password, :password_confirmation
+      attr_accessor   :remember_me
+      attr_accessible :username, :password, :password_confirmation, :remember_me
 
       def self.authenticate(attributes = nil)
         return nil if attributes.nil?
 
         if identity = where(arel_table[:username].matches(attributes[:username].try(&:strip))).first.try(:authenticate, attributes[:password])
+          identity.remember_me = attributes[:remember_me]
           identity
         else
           nil
@@ -25,6 +27,16 @@ module EasyAuth::Models::Identity
   def generate_session_token!
     self.update_attribute(:session_token, _generate_token(:session))
     self.session_token
+  end
+
+  def generate_remember_token!
+    if remember_me
+      token = _generate_token(:remember)
+    else
+      token = nil
+    end
+    self.update_attribute(:remember_token, token)
+    self.remember_token
   end
 
   private
