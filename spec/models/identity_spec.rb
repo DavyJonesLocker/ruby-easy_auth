@@ -46,7 +46,7 @@ describe Identity do
     it 'sets a unique reset token' do
       identity = create(:identity, :account => build(:user))
       identity.reset_token.should be_nil
-      identity.password_reset
+      identity.generate_reset_token!
       identity = Identity.last
       identity.reset_token.should_not be_nil
     end

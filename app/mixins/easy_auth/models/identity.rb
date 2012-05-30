@@ -26,8 +26,9 @@ module EasyAuth::Models::Identity
     @remember = ::ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
   end
 
-  def password_reset
+  def generate_reset_token!
     update_attribute(:reset_token, URI.escape(_generate_token(:reset).gsub(/[\.|\\\/]/,'')))
+    self.reset_token
   end
 
   def generate_session_token!
