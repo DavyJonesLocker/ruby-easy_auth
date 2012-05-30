@@ -12,6 +12,7 @@ module EasyAuth::Controllers::PasswordReset
   def create
     if @identity = EasyAuth.identity_model.where(:username => params[:identity][:username]).first
       @identity.password_reset
+      PasswordResetMailer.reset(@identity.id).deliver
     else
       @identity = EasyAuth.identity_model.new(params[:identity])
     end

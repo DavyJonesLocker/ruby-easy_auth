@@ -28,7 +28,6 @@ module EasyAuth::Models::Identity
 
   def password_reset
     update_attribute(:reset_token, URI.escape(_generate_token(:reset).gsub(/[\.|\\\/]/,'')))
-    PasswordResetMailer.reset(self.id).deliver
   end
 
   def generate_session_token!
