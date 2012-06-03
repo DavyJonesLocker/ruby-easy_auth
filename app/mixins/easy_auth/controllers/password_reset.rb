@@ -36,7 +36,7 @@ module EasyAuth::Controllers::PasswordReset
   end
 
   def find_identity_from_reset_token
-    @identity = EasyAuth.identity_model.where(:reset_token => params[:reset_token]).first
+    @identity = EasyAuth.identity_model.where(:reset_token => params[:reset_token].to_s).first
   end
 
   def after_successful_password_reset(identity)
