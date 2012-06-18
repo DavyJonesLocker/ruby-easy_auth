@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    easy_auth (0.0.2)
+    easy_auth (0.0.3)
       bcrypt-ruby (~> 3.0.0)
       rails (~> 3.2.1)
 
