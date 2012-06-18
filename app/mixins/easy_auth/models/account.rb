@@ -19,13 +19,13 @@ module EasyAuth::Models::Account
       end
 
       has_one :identity, :as => :account
-      before_create :setup_identity
-      before_update :update_identity
+      before_create :setup_identity, :unless => :skip_identity_validations
+      before_update :update_identity, :unless => :skip_identity_validations
 
-      attr_accessor :password
-      validates :password, :presence => { :on => :create }, :confirmation => true
-      attr_accessible :password, :password_confirmation
-      validates identity_username_attribute, :presence => true
+      attr_accessor :password, :skip_identity_validations
+      validates :password, :presence => { :on => :create, :unless => :skip_identity_validations }, :confirmation => true
+      attr_accessible :password, :password_confirmation, :skip_identity_validations
+      validates identity_username_attribute, :presence => true, :unless => :skip_identity_validations
     end
   end
 

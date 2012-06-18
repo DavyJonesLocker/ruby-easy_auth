@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe EasyAuth::Models::Account do
-  after do
-    Object.send(:remove_const, :TestUser)
-  end
-
   context '.identity_username_attribute' do
     before do
       class TestUser; end
@@ -15,6 +11,9 @@ describe EasyAuth::Models::Account do
       TestUser.stubs(:attr_accessible)
     end
 
+    after do
+      Object.send(:remove_const, :TestUser)
+    end
 
     context 'when only #username is defined' do
       before do
@@ -59,6 +58,14 @@ describe EasyAuth::Models::Account do
           TestUser.instance_eval { include(EasyAuth::Models::Account) }
         }.should raise_exception(EasyAuth::Models::Account::NoIdentityUsernameError)
       end
+    end
+  end
+
+  context 'when idetnity validations are skipped' do
+    it 'does not create an identity or validate the attributes' do
+      user = User.create(:skip_identity_validations => true)
+      user.identity.should be_nil
+      user.id.should_not be_nil
     end
   end
 end
