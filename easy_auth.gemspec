@@ -7,8 +7,8 @@ require 'easy_auth/version'
 Gem::Specification.new do |s|
   s.name        = 'easy_auth'
   s.version     = EasyAuth::VERSION
-  s.authors     = ['Brian Cardarella']
-  s.email       = ['brian@dockyard.com', 'bcardarella@gmail.com']
+  s.authors     = ['Brian Cardarella', 'Dan McClain']
+  s.email       = ['brian@dockyard.com', 'bcardarella@gmail.com', 'rubygems@danmcclain.net']
   s.homepage    = 'https://github.com/dockyard/easy_auth'
   s.summary     = 'EasyAuth'
   s.description = 'EasyAuth'
