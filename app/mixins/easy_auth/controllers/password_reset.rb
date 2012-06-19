@@ -40,7 +40,8 @@ module EasyAuth::Controllers::PasswordReset
   end
 
   def after_successful_password_reset(identity)
-    session[:session_token] = identity.generate_session_token!
+    session[:session_token] = identity.account.generate_session_token!
+    session[:account_class] = identity.account.class.to_s
     identity.update_attribute(:reset_token, nil)
     redirect_to after_successful_password_reset_path(identity), :notice => I18n.t('easy_auth.password_reset.update.notice')
   end

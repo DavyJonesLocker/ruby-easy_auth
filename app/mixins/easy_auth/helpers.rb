@@ -7,9 +7,9 @@ module EasyAuth
     end
 
     def current_account
-      if session[:session_token]
+      if session[:session_token] && session[:account_class]
         begin
-          @current_account ||= EasyAuth.identity_model.find_by_session_token(session[:session_token]).account
+          @current_account ||= session[:account_class].constantize.find_by_session_token(session[:session_token])
         rescue
           @current_account = nil
           session.delete(:session_token)

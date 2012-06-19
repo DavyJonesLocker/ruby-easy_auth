@@ -31,11 +31,6 @@ module EasyAuth::Models::Identity
     self.reset_token
   end
 
-  def generate_session_token!
-    self.update_attribute(:session_token, _generate_token(:session))
-    self.session_token
-  end
-
   def generate_remember_token!
     self.update_attribute(:remember_token, _generate_token(:remember))
     self.remember_token
@@ -48,6 +43,6 @@ module EasyAuth::Models::Identity
   private
 
   def _generate_token(type)
-    BCrypt::Password.create("#{id}-#{type}_token-#{DateTime.current}")
+    token = BCrypt::Password.create("#{id}-#{type}_token-#{DateTime.current}")
   end
 end

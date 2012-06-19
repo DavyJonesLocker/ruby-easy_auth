@@ -29,6 +29,12 @@ module EasyAuth::Models::Account
     end
   end
 
+  def generate_session_token!
+    token = BCrypt::Password.create("#{id}-session_token-#{DateTime.current}")
+    self.update_attribute(:session_token, token)
+    self.session_token
+  end
+
   private
 
   def setup_identity
