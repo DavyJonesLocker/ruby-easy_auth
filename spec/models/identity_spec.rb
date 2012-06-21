@@ -1,7 +1,12 @@
 require 'spec_helper'
 
 describe Identity do
-   describe '.authenticate' do
+  describe 'username' do
+    before { create(:identity) }
+    it { should     have_valid(:username).when('another_test@example.com') }
+    it { should_not have_valid(:username).when('test@example.com') }
+  end
+  describe '.authenticate' do
     context 'correct username and password' do
       before { create(:identity) }
       it 'returns the user' do
