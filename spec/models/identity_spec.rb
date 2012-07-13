@@ -4,8 +4,23 @@ describe Identity do
   describe 'username' do
     before { create(:identity) }
     it { should     have_valid(:username).when('another_test@example.com') }
-    it { should_not have_valid(:username).when('test@example.com') }
+    it { should_not have_valid(:username).when('test@example.com', nil, '') }
   end
+
+  # describe 'password' do
+    # context 'new record' do
+      # it { should     have_valid(:password).when('password') }
+      # it { should_not have_valid(:password).when(nil, '') }
+    # end
+
+    # context 'existing record' do
+      # before do
+        # # set subject to existing record
+      # end
+      # it { should have_valid(:password).when('password', nil, '') }
+    # end
+  # end
+
   describe '.authenticate' do
     context 'correct username and password' do
       before { create(:identity) }

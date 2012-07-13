@@ -4,7 +4,8 @@ module EasyAuth::Models::Identity
       belongs_to :account, :polymorphic => true
       has_secure_password
       attr_accessible :username, :password, :password_confirmation, :remember
-      validates :username, :uniqueness => true
+      validates :username, :uniqueness => true, :presence => true
+      validates :password, :presence => { :on => :create }
 
       def self.authenticate(attributes = nil)
         return nil if attributes.nil?
