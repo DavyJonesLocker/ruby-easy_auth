@@ -6,16 +6,19 @@ module EasyAuth::Models::Identity
       attr_accessible :username, :password, :password_confirmation, :remember
       validates :username, :uniqueness => true, :presence => true
       validates :password, :presence => { :on => :create }
+      extend ClassMethods
+    end
+  end
 
-      def self.authenticate(attributes = nil)
-        return nil if attributes.nil?
+  module ClassMethods
+    def authenticate(attributes = nil)
+      return nil if attributes.nil?
 
-        if identity = where(arel_table[:username].matches(attributes[:username].try(&:strip))).first.try(:authenticate, attributes[:password])
-          identity.remember = attributes[:remember]
-          identity
-        else
-          nil
-        end
+      if identity = where(arel_table[:username].matches(attributes[:username].try(&:strip))).first.try(:authenticate, attributes[:password])
+        identity.remember = attributes[:remember]
+        identity
+      else
+        nil
       end
     end
   end
