@@ -23,6 +23,10 @@ module EasyAuth::Models::Identity
     end
   end
 
+  def set_account_session(session)
+    account.set_session(session)
+  end
+
   def remember
     @remember
   end
