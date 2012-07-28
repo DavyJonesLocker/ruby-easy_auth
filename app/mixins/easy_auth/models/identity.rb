@@ -32,13 +32,13 @@ module EasyAuth::Models::Identity
   end
 
   def generate_reset_token!
-    update_attribute(:reset_token, URI.escape(_generate_token(:reset).gsub(/[\.|\\\/]/,'')))
-    self.reset_token
+    update_column(:reset_token, URI.escape(_generate_token(:reset).gsub(/[\.|\\\/]/,'')))
+    reset_token
   end
 
   def generate_remember_token!
-    self.update_attribute(:remember_token, _generate_token(:remember))
-    self.remember_token
+    update_column(:remember_token, _generate_token(:remember))
+    remember_token
   end
 
   def remember_time
