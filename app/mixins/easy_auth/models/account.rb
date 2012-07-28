@@ -35,11 +35,6 @@ module EasyAuth::Models::Account
     self.session_token
   end
 
-  def set_session(session)
-    session[:session_token] = generate_session_token!
-    session[:account_class] = self.class.to_s
-  end
-
   private
 
   def setup_identity
