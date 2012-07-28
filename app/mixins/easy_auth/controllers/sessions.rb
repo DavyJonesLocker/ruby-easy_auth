@@ -25,10 +25,10 @@ module EasyAuth::Controllers::Sessions
   private
 
   def after_successful_sign_in(identity)
-    redirect_to session.delete(:requested_path) || after_successful_sign_in_path(identity), :notice => I18n.t('easy_auth.sessions.create.notice')
+    redirect_to session.delete(:requested_path) || after_successful_sign_in_url(identity), :notice => I18n.t('easy_auth.sessions.create.notice')
   end
 
-  def after_successful_sign_in_path(identity)
+  def after_successful_sign_in_url(identity)
     identity.account
   end
 
@@ -38,6 +38,6 @@ module EasyAuth::Controllers::Sessions
   end
 
   def after_sign_out
-    redirect_to main_app.root_path, :notice => I18n.t('easy_auth.sessions.delete.notice')
+    redirect_to main_app.root_url, :notice => I18n.t('easy_auth.sessions.delete.notice')
   end
 end

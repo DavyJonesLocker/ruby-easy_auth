@@ -8,7 +8,7 @@ module EasyAuth::Controllers::Authenticated
   def attempt_to_authenticate
     if user_not_signed_in?
       session[:requested_path] = request.path
-      redirect_to main_app.sign_in_path
+      redirect_to main_app.sign_in_url
     end
   end
 end

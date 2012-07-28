@@ -42,10 +42,10 @@ module EasyAuth::Controllers::PasswordReset
   def after_successful_password_reset(identity)
     identity.set_account_session(session)
     identity.update_attribute(:reset_token, nil)
-    redirect_to after_successful_password_reset_path(identity), :notice => I18n.t('easy_auth.password_reset.update.notice')
+    redirect_to after_successful_password_reset_url(identity), :notice => I18n.t('easy_auth.password_reset.update.notice')
   end
 
-  def after_successful_password_reset_path(identity)
+  def after_successful_password_reset_url(identity)
     identity.account
   end
 
