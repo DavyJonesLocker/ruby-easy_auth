@@ -18,7 +18,7 @@ module EasyAuth::Models::Account
         self.send(self.class.identity_username_attribute)
       end
 
-      has_one :identity, :as => :account
+      has_one :identity, :as => :account, :dependent => :destroy
       before_create :setup_identity, :unless => :skip_identity_validations
       before_update :update_identity, :unless => :skip_identity_validations
 
