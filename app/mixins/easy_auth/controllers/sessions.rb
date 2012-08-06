@@ -1,4 +1,10 @@
 module EasyAuth::Controllers::Sessions
+  def self.included(base)
+    base.class_eval do
+      before_filter :no_authentication, :except => :destroy
+    end
+  end
+
   def new
     @identity = EasyAuth.identity_model.new
   end
@@ -39,5 +45,15 @@ module EasyAuth::Controllers::Sessions
 
   def after_sign_out
     redirect_to main_app.root_url, :notice => I18n.t('easy_auth.sessions.delete.notice')
+  end
+
+  def no_authentication
+    if account_signed_in?
+      redirect_to no_authentication_url
+    end
+  end
+
+  def no_authentication_url
+    main_app.root_url
   end
 end

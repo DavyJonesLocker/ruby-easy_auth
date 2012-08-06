@@ -41,6 +41,12 @@ feature 'Authentication' do
     user.password_confirmation = 'password'
     sign_in_with(user)
   end
+
+  scenario 'visiting sign in path' do
+    sign_in_with(create(:user))
+    visit sign_in_path
+    current_path.should eq dashboard_path
+  end
 end
 
 feature 'Unauthenticated' do
