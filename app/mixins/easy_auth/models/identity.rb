@@ -3,9 +3,11 @@ module EasyAuth::Models::Identity
     base.class_eval do
       belongs_to :account, :polymorphic => true
       has_secure_password
+      attr_accessor :password_reset
       attr_accessible :username, :password, :password_confirmation, :remember
       validates :username, :uniqueness => true, :presence => true
       validates :password, :presence => { :on => :create }
+      validates :password, :presence => { :if => :password_reset }
       extend ClassMethods
     end
   end

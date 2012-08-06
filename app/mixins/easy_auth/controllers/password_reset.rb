@@ -25,7 +25,7 @@ module EasyAuth::Controllers::PasswordReset
     if @identity.update_attributes(scope_to_password_params(:identity))
       after_successful_password_reset(@identity)
     else
-      after_failed_sign_in(@identity)
+      after_failed_password_reset(@identity)
     end
   end
 
@@ -37,6 +37,7 @@ module EasyAuth::Controllers::PasswordReset
 
   def find_identity_from_reset_token
     @identity = EasyAuth.identity_model.where(:reset_token => params[:reset_token].to_s).first
+    @identity.password_reset = true
   end
 
   def after_successful_password_reset(identity)
@@ -51,6 +52,6 @@ module EasyAuth::Controllers::PasswordReset
 
   def after_failed_password_reset(identity)
     flash.now[:error] = I18n.t('easy_auth.password_reset.update.error')
-    render :new
+    render :edit
   end
 end

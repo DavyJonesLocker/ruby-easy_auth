@@ -7,19 +7,30 @@ describe Identity do
     it { should_not have_valid(:username).when('test@example.com', nil, '') }
   end
 
-  # describe 'password' do
-    # context 'new record' do
-      # it { should     have_valid(:password).when('password') }
-      # it { should_not have_valid(:password).when(nil, '') }
-    # end
+  describe 'password' do
+    context 'new record' do
+      it { should     have_valid(:password).when('password') }
+      it { should_not have_valid(:password).when(nil, '') }
+    end
 
-    # context 'existing record' do
-      # before do
-        # # set subject to existing record
-      # end
-      # it { should have_valid(:password).when('password', nil, '') }
-    # end
-  # end
+    context 'existing record' do
+      subject do
+        create(:identity)
+        Identity.last
+      end
+      it { should have_valid(:password).when('password', nil, '') }
+    end
+
+    context 'password reset' do
+      subject do
+        create(:identity)
+        identity = Identity.last
+        identity.password_reset = true
+        identity
+      end
+      it { should_not have_valid(:password).when(nil, '') }
+    end
+  end
 
   describe '.authenticate' do
     context 'correct username and password' do
