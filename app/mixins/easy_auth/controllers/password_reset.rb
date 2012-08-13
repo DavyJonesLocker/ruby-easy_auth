@@ -32,7 +32,7 @@ module EasyAuth::Controllers::PasswordReset
   private
 
   def scope_to_password_params(key)
-    params[key].select { |k, v| ['password', 'password_confirmation'].include?(k) }
+    { :password => params[key][:password], :password_confirmation => params[key][:password_confirmation] }
   end
 
   def find_identity_from_reset_token
