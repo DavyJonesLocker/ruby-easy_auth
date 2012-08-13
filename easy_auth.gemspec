@@ -26,7 +26,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'bourne'
   s.add_development_dependency 'launchy'
-  if RUBY_VERSION > '1.9' && RUBY_ENGINE == 'ruby'
-    s.add_development_dependency 'debugger'
-  end
 end

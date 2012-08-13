@@ -3,16 +3,9 @@ rvm:
   - 1.9.2
   - 1.9.3
   - ree
-  - jruby
-  - jruby-19mode
-
-script: bundle exec rspec spec
 
 before_script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
 
 env: RAILS_ENV=test
-
-notifications:
-  email: false
