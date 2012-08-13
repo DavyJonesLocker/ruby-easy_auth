@@ -23,7 +23,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'capybara-email'
   s.add_development_dependency 'valid_attribute'
-  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'factory_girl_rails', '~> 1.7.0'
+  s.add_development_dependency 'factory_girl', '~> 2.6.0'
   s.add_development_dependency 'bourne'
   s.add_development_dependency 'launchy'
 end
