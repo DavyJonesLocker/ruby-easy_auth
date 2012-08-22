@@ -24,6 +24,7 @@ module EasyAuth::Controllers::Sessions
 
   def destroy
     session.delete(:session_token)
+    session.delete(:account_class)
     cookies.delete(:remember_token)
     after_sign_out
   end
