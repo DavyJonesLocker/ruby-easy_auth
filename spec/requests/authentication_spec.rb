@@ -61,4 +61,9 @@ feature 'Unauthenticated' do
 
     page.should have_content 'My profile'
   end
+
+  scenario 'accessing a page that requires authentication via ajax' do
+    get profile_path(:format => :json)
+    response.status.should eq 401
+  end
 end
