@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = 'EasyAuth'
   s.description = 'EasyAuth'
 
-  s.files = Dir['{app,config,db,lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.md']
+  s.files = Dir['{app,config,db,lib}/**/*'] + ['Rakefile', 'README.md']
 
   s.add_dependency 'rails', '~> 3.2.1'
   s.add_dependency 'bcrypt-ruby', '~> 3.0.0'
