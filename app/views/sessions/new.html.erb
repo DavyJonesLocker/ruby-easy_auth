@@ -15,3 +15,7 @@
     <%= f.submit 'Submit' %>
   </p>
 <% end %>
+<p>Sign in with:</p>
+<p>
+  <%= link_to 'Google', oauth_sign_in_path(:provider => :google) %>
+</p>

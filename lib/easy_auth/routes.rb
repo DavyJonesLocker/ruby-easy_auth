@@ -3,6 +3,12 @@ module ActionDispatch::Routing
     def easy_auth_routes
       easy_auth_session_routes
       easy_auth_password_reset_routes
+      easy_auth_google_identity_routes
+    end
+
+    def easy_auth_google_identity_routes
+      get  '/sign_in/oauth/:provider'          => 'oauth#new',    :as => :oauth_sign_in
+      get  '/sign_in/oauth/:provider/callback' => 'oauth#create', :as => :oauth_callback
     end
 
     def easy_auth_session_routes

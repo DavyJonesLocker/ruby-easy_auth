@@ -5,7 +5,7 @@ FactoryGirl.define do
     password_confirmation 'password'
   end
 
-  factory :identity do
+  factory :password_identity do
     username              'test@example.com'
     password              'password'
     password_confirmation 'password'

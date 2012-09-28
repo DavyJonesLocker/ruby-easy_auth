@@ -15,13 +15,14 @@ ActiveRecord::Schema.define(:version => 20120227014023) do
 
   create_table "identities", :force => true do |t|
     t.string   "username"
-    t.string   "password_digest"
+    t.string   "token"
     t.string   "account_type"
     t.integer  "account_id"
     t.string   "reset_token"
     t.string   "remember_token"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "identities", ["remember_token"], :name => "index_identities_on_remember_token"

@@ -43,7 +43,7 @@ module EasyAuth::Models::Account
   private
 
   def setup_identity
-    build_identity(identity_attributes)
+    self.identity = PasswordIdentity.new(identity_attributes)
   end
 
   def update_identity

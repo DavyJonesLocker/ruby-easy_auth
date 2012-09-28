@@ -6,15 +6,15 @@ module EasyAuth::Controllers::PasswordReset
   end
 
   def new
-    @identity = EasyAuth.identity_model.new
+    @identity = EasyAuth.password_identity_model.new
   end
 
   def create
-    if @identity = EasyAuth.identity_model.where(:username => params[:identity][:username]).first
+    if @identity = EasyAuth.password_identity_model.where(:username => params[:password_identity][:username]).first
       @identity.generate_reset_token!
       PasswordResetMailer.reset(@identity.id).deliver
     else
-      @identity = EasyAuth.identity_model.new(params[:identity])
+      @identity = EasyAuth.password_identity_model.new(params[:password_identity])
     end
 
     flash.now[:notice] = I18n.t('easy_auth.password_reset.create.notice')
@@ -22,7 +22,7 @@ module EasyAuth::Controllers::PasswordReset
   end
 
   def update
-    if @identity.update_attributes(scope_to_password_params(:identity))
+    if @identity.update_attributes(scope_to_password_params(:password_identity))
       after_successful_password_reset(@identity)
     else
       after_failed_password_reset(@identity)
@@ -36,7 +36,7 @@ module EasyAuth::Controllers::PasswordReset
   end
 
   def find_identity_from_reset_token
-    @identity = EasyAuth.identity_model.where(:reset_token => params[:reset_token].to_s).first
+    @identity = EasyAuth.password_identity_model.where(:reset_token => params[:reset_token].to_s).first
     @identity.password_reset = true
   end
 
