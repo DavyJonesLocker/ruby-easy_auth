@@ -11,7 +11,10 @@ module EasyAuth::Models::GoogleIdentity
       client.auth_code.authorize_url(:redirect_uri => callback_url, :scope => EasyAuth.oauth[:google].scope)
     end
 
-    def authenticate(account, callback_url, code)
+    def authenticate(controller)
+      account = controller.current_account
+      callback_url = controller.oauth_callback_url(:provider => :google)
+      code = controller.params[:code]
       token = client.auth_code.get_token(code, :redirect_uri => callback_url)
       user_info_response = token.get 'https://www.googleapis.com/oauth2/v1/userinfo'
       user_info = ActiveSupport::JSON.decode user_info_response.body
@@ -31,6 +34,10 @@ module EasyAuth::Models::GoogleIdentity
       identity.save!
 
       identity
+    end
+
+    def new_session(controller)
+      controller.redirect_to authenticate_url(controller.oauth_callback_url(:provider => :google))
     end
 
     private

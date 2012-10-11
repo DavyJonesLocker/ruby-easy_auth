@@ -11,22 +11,27 @@ module EasyAuth
     User
   end
 
-  def self.password_identity_model
+  def self.password_identity_model(controller = nil)
     PasswordIdentity
   end
 
-  def self.google_oauth_identity_model
+  def self.oauth_identity_model(controller)
+    send("oauth_#{controller.params[:provider]}_identity_model", controller)
+  end
+
+  def self.oauth_google_identity_model(controller)
     GoogleIdentity
   end
 
   def self.authenticate(controller)
-    if controller.params[:identity] == :password
-      EasyAuth.password_identity_model.authenticate(controller.params[:password_identity])
-    elsif controller.params[:identity] == :oauth
-      EasyAuth.send("#{controller.params[:provider]}_oauth_identity_model").authenticate(controller.current_account,
-                                                                        controller.oauth_callback_url(:provider => controller.params[:provider]),
-                                                                        controller.params[:code])
+    if identity_model = find_identity_model(controller)
+      identity_model.authenticate(controller)
     end
+  end
+
+  def self.new_session(controller)
+    identity_model = find_identity_model(controller)
+    identity_model.new_session(controller)
   end
 
   class << self
@@ -41,5 +46,11 @@ module EasyAuth
 
   def self.oauth_client(provider, client_id, secret, scope)
     oauth[provider] = OpenStruct.new :client_id => client_id, :secret => secret, :scope => scope
+  end
+
+  private
+
+  def self.find_identity_model(controller)
+    send("#{controller.params[:identity]}_identity_model", controller)
   end
 end

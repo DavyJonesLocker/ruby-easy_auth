@@ -14,7 +14,8 @@ module EasyAuth::Models::PasswordIdentity
   end
 
   module ClassMethods
-    def authenticate(attributes = nil)
+    def authenticate(controller)
+      attributes = controller.params[:password_identity]
       return nil if attributes.nil?
 
       if identity = where(arel_table[:username].matches(attributes[:username].try(&:strip))).first.try(:authenticate, attributes[:password])
@@ -23,6 +24,10 @@ module EasyAuth::Models::PasswordIdentity
       else
         nil
       end
+    end
+
+    def new_session(controller)
+      controller.instance_variable_set(:@identity, self.new)
     end
   end
 

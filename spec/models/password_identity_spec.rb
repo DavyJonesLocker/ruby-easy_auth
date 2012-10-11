@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe PasswordIdentity do
+  let(:params) { Hash.new }
+  let(:controller) do
+    controller = mock('Controller')
+    controller.stubs(:params).returns({:password_identity => params})
+    controller
+  end
+
   describe 'username' do
     before { create(:password_identity) }
     it { should     have_valid(:username).when('another_test@example.com') }
@@ -33,32 +40,43 @@ describe PasswordIdentity do
   end
 
   describe '.authenticate' do
+    before do
+      params.merge!(:username => 'test@example.com')
+    end
     context 'correct username and password' do
-      before { create(:password_identity) }
+      before do
+        params[:password] = 'password'
+        create(:password_identity)
+      end
       it 'returns the user' do
-        PasswordIdentity.authenticate(:username => 'test@example.com', :password => 'password').should be_instance_of PasswordIdentity
+        PasswordIdentity.authenticate(controller).should be_instance_of PasswordIdentity
       end
       context 'with remember' do
-        it { PasswordIdentity.authenticate(:username => 'test@example.com', :password => 'password', :remember => true).remember.should be_true }
+        before { params[:remember] = true }
+        it { PasswordIdentity.authenticate(controller).remember.should be_true }
       end
       context 'without remember' do
-        it { PasswordIdentity.authenticate(:username => 'test@example.com', :password => 'password').remember.should be_false }
+        it { PasswordIdentity.authenticate(controller).remember.should be_false }
       end
     end
     context 'correct username bad password' do
-      before { create(:password_identity) }
+      before do
+        params[:password] = 'bad'
+        create(:password_identity)
+      end
       it 'returns nil' do
-        PasswordIdentity.authenticate(:username => 'test@example.com', :password => 'bad').should be_nil
+        PasswordIdentity.authenticate(controller).should be_nil
       end
     end
     context 'bad username and password' do
+      before { params.merge!(:username => 'bad@example.com', :password => 'bad') }
       it 'returns nil' do
-        PasswordIdentity.authenticate(:username => 'bad@example.com', :password => 'bad').should be_nil
+        PasswordIdentity.authenticate(controller).should be_nil
       end
     end
     context 'no attributes given' do
       it 'returns nil' do
-        PasswordIdentity.authenticate.should be_nil
+        PasswordIdentity.authenticate(controller).should be_nil
       end
     end
   end

@@ -6,11 +6,7 @@ module EasyAuth::Controllers::Sessions
   end
 
   def new
-    if params[:identity] == :oauth
-      redirect_to EasyAuth.send("#{params[:provider]}_oauth_identity_model").authenticate_url(oauth_callback_url(:provider => params[:provider]))
-    else
-      @identity = EasyAuth.password_identity_model.new
-    end
+    EasyAuth.new_session(self)
   end
 
   def create
