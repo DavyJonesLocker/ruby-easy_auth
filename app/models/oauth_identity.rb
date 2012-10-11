@@ -1,3 +1,3 @@
 class OauthIdentity < Identity
-  include EasyAuth::Models::OauthIdentity
+  extend EasyAuth::Models::OauthIdentity
 end

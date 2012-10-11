@@ -1,3 +1,3 @@
 class Oauth::GoogleIdentity < OauthIdentity
-  include EasyAuth::Models::Oauth::GoogleIdentity
+  extend EasyAuth::Models::Oauth::GoogleIdentity
 end

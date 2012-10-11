@@ -1,40 +1,57 @@
 require 'oauth2'
+
 module EasyAuth::Models::OauthIdentity
-  def self.included(base)
-    base.class_eval do
-      extend ClassMethods
-    end
+  def authenticate_url(callback_url)
+    client.auth_code.authorize_url(:redirect_uri => callback_url, :scope => scope)
   end
 
-  module ClassMethods
-    def authenticate_url(callback_url)
-      raise NotImplementedError
-    end
+  def authenticate(controller)
+    raise NotImplementedError
+  end
 
-    def authenticate(controller)
-      raise NotImplementedError
-    end
+  def new_session(controller)
+    controller.redirect_to authenticate_url(controller.oauth_callback_url(:provider => provider))
+  end
 
-    def new_session(controller)
-      raise NotImplementedError
-    end
+  private
 
-    private
+  def provider
+    raise NotImplementedError
+  end
 
-    def client
-      raise NotImplementedError
-    end
+  def client
+    @client ||= OAuth2::Client.new(client_id, secret, :site => site_url, :authorize_url => authorize_url, :token_url => token_url)
+  end
 
-    def authorize_url
-      raise NotImplementedError
-    end
+  def authorize_url
+    raise NotImplementedError
+  end
 
-    def token_url
-      raise NotImplementedError
-    end
+  def token_url
+    raise NotImplementedError
+  end
 
-    def site_url
-      raise NotImplementedError
-    end
+  def site_url
+    raise NotImplementedError
+  end
+
+  def scope
+    settings.scope
+  end
+
+  def client_id
+    settings.client_id
+  end
+
+  def secret
+    settings.secret
+  end
+
+  def settings
+    EasyAuth.oauth[provider]
+  end
+
+  def provider
+    self.to_s.split('::').last.match(/(\w+)Identity/)[1].underscore.to_sym
   end
 end
