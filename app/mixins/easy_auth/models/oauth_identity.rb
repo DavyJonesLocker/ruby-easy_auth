@@ -1,12 +1,26 @@
 require 'oauth2'
 
 module EasyAuth::Models::OauthIdentity
-  def authenticate_url(callback_url)
-    client.auth_code.authorize_url(:redirect_uri => callback_url, :scope => scope)
-  end
-
   def authenticate(controller)
-    raise NotImplementedError
+    callback_url   = controller.oauth_callback_url(:provider => provider)
+    code           = controller.params[:code]
+    token          = client.auth_code.get_token(code, :redirect_uri => callback_url)
+    user_info      = get_user_info(token)
+    identity       = self.find_or_initialize_by_username user_info['id']
+    identity.token = token.token
+
+    if identity.new_record? && account.nil?
+      account = EasyAuth.account_model.create(EasyAuth.account_model.identity_username_attribute => identity.username)
+    else
+      account = controller.current_account
+    end
+
+    if identity.new_record?
+      identity.account = account
+    end
+
+    identity.save!
+    identity
   end
 
   def new_session(controller)
@@ -15,12 +29,24 @@ module EasyAuth::Models::OauthIdentity
 
   private
 
+  def get_user_info(token)
+    ActiveSupport::JSON.decode(token.get(user_info_url).body)
+  end
+
   def provider
     raise NotImplementedError
   end
 
   def client
     @client ||= OAuth2::Client.new(client_id, secret, :site => site_url, :authorize_url => authorize_url, :token_url => token_url)
+  end
+
+  def authenticate_url(callback_url)
+    client.auth_code.authorize_url(:redirect_uri => callback_url, :scope => scope)
+  end
+
+  def user_info_url
+    raise NotImplementedError
   end
 
   def authorize_url
