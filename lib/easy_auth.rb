@@ -20,7 +20,7 @@ module EasyAuth
   end
 
   def self.oauth_google_identity_model(controller)
-    GoogleIdentity
+    Oauth::GoogleIdentity
   end
 
   def self.authenticate(controller)

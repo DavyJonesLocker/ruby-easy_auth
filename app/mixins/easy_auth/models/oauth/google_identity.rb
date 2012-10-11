@@ -1,5 +1,4 @@
-require 'oauth2'
-module EasyAuth::Models::GoogleIdentity
+module EasyAuth::Models::Oauth::GoogleIdentity
   def self.included(base)
     base.class_eval do
       extend ClassMethods
