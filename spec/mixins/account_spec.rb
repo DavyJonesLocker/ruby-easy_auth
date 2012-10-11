@@ -61,17 +61,9 @@ describe EasyAuth::Models::Account do
     end
   end
 
-  context 'when idetnity validations are skipped' do
-    it 'does not create an identity or validate the attributes' do
-      user = User.create(:skip_identity_validations => true)
-      user.identity.should be_nil
-      user.id.should_not be_nil
-    end
-  end
-
   describe '#generate_session_token!' do
     it 'sets a unique session token' do
-      user = create(:user, :skip_identity_validations => true)
+      user = create(:user)
       user.session_token.should be_nil
       user.generate_session_token!
       user = User.last

@@ -7,12 +7,26 @@ module EasyAuth
     Identity
   end
 
+  def self.account_model
+    User
+  end
+
   def self.password_identity_model
     PasswordIdentity
   end
 
-  def self.google_identity_model
+  def self.google_oauth_identity_model
     GoogleIdentity
+  end
+
+  def self.authenticate(controller)
+    if controller.params[:identity] == :password
+      EasyAuth.password_identity_model.authenticate(controller.params[:password_identity])
+    elsif controller.params[:identity] == :oauth
+      EasyAuth.send("#{controller.params[:provider]}_oauth_identity_model").authenticate(controller.current_account,
+                                                                        controller.oauth_callback_url(:provider => controller.params[:provider]),
+                                                                        controller.params[:code])
+    end
   end
 
   class << self

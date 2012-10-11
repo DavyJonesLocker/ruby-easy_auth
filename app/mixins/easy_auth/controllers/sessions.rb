@@ -6,11 +6,15 @@ module EasyAuth::Controllers::Sessions
   end
 
   def new
-    @identity = EasyAuth.password_identity_model.new
+    if params[:identity] == :oauth
+      redirect_to EasyAuth.send("#{params[:provider]}_oauth_identity_model").authenticate_url(oauth_callback_url(:provider => params[:provider]))
+    else
+      @identity = EasyAuth.password_identity_model.new
+    end
   end
 
   def create
-    if identity = EasyAuth.password_identity_model.authenticate(params[:password_identity])
+    if identity = EasyAuth.authenticate(self)
       identity.set_account_session(session)
       if identity.remember
         cookies[:remember_token] = { :value => identity.generate_remember_token!, :expires => identity.remember_time.from_now }

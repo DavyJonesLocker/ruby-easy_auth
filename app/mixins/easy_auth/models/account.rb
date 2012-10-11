@@ -19,14 +19,18 @@ module EasyAuth::Models::Account
       end
 
       has_one :identity, :as => :account, :dependent => :destroy
-      before_create :setup_identity, :unless => :skip_identity_validations
-      before_update :update_identity, :unless => :skip_identity_validations
+      before_create :setup_password_identity, :if => :should_run_password_identity_validations?
+      before_update :update_password_identity, :if => :should_run_password_identity_validations?
 
-      attr_accessor :password, :skip_identity_validations
-      validates :password, :presence => { :on => :create, :unless => :skip_identity_validations }, :confirmation => true
-      attr_accessible :password, :password_confirmation, :skip_identity_validations
-      validates identity_username_attribute, :presence => true, :unless => :skip_identity_validations
+      attr_accessor :password
+      validates :password, :presence => { :on => :create, :if => :should_run_password_identity_validations? }, :confirmation => true
+      attr_accessible :password, :password_confirmation
+      validates identity_username_attribute, :presence => true, :if => :should_run_password_identity_validations?
     end
+  end
+
+  def should_run_password_identity_validations?
+    (self.new_record? && self.password.present?) || (EasyAuth.password_identity_model === self.identity)
   end
 
   def generate_session_token!
@@ -42,11 +46,11 @@ module EasyAuth::Models::Account
 
   private
 
-  def setup_identity
-    self.identity = PasswordIdentity.new(identity_attributes)
+  def setup_password_identity
+    self.identity = EasyAuth.password_identity_model.new(identity_attributes)
   end
 
-  def update_identity
+  def update_password_identity
     identity.update_attributes(identity_attributes)
   end
 

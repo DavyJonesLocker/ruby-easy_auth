@@ -11,7 +11,7 @@ module EasyAuth::Models::GoogleIdentity
       client.auth_code.authorize_url(:redirect_uri => callback_url, :scope => EasyAuth.oauth[:google].scope)
     end
 
-    def authenticate(callback_url, code)
+    def authenticate(account, callback_url, code)
       token = client.auth_code.get_token(code, :redirect_uri => callback_url)
       user_info_response = token.get 'https://www.googleapis.com/oauth2/v1/userinfo'
       user_info = ActiveSupport::JSON.decode user_info_response.body
@@ -19,6 +19,16 @@ module EasyAuth::Models::GoogleIdentity
       identity = self.find_or_initialize_by_username user_info['id']
 
       identity.token = token.token
+
+      if identity.new_record? && account.nil?
+        account = EasyAuth.account_model.create(EasyAuth.account_model.identity_username_attribute => identity.username)
+      end
+
+      if identity.new_record?
+        identity.account = account
+      end
+
+      identity.save!
 
       identity
     end

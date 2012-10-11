@@ -7,14 +7,14 @@ module ActionDispatch::Routing
     end
 
     def easy_auth_google_identity_routes
-      get  '/sign_in/oauth/:provider'          => 'oauth#new',    :as => :oauth_sign_in
-      get  '/sign_in/oauth/:provider/callback' => 'oauth#create', :as => :oauth_callback
+      get  '/sign_in/oauth/:provider'          => 'sessions#new',    :as => :oauth_sign_in, :defaults => { :identity => :oauth }
+      get  '/sign_in/oauth/:provider/callback' => 'sessions#create', :as => :oauth_callback, :defaults => { :identity => :oauth }
     end
 
     def easy_auth_session_routes
       get  '/sign_out' => 'sessions#destroy', :as => :sign_out
       get  '/sign_in'  => 'sessions#new',     :as => :sign_in
-      post '/sign_in'  => 'sessions#create'
+      post '/sign_in'  => 'sessions#create', :defaults => { :identity => :password }
     end
 
     def easy_auth_password_reset_routes
