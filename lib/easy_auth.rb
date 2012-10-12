@@ -27,6 +27,10 @@ module EasyAuth
     Oauth::FacebookIdentity
   end
 
+  def self.oauth_github_identity_model(controller)
+    Oauth::GithubIdentity
+  end
+
   def self.authenticate(controller)
     if identity_model = find_identity_model(controller)
       identity_model.authenticate(controller)
