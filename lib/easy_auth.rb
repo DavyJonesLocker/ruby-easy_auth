@@ -15,20 +15,20 @@ module EasyAuth
     PasswordIdentity
   end
 
-  def self.oauth_identity_model(controller)
-    send("oauth_#{controller.params[:provider]}_identity_model", controller)
+  def self.oauth2_identity_model(controller)
+    send("oauth2_#{controller.params[:provider]}_identity_model", controller)
   end
 
-  def self.oauth_google_identity_model(controller)
-    Oauth::GoogleIdentity
+  def self.oauth2_google_identity_model(controller)
+    Oauth2::GoogleIdentity
   end
 
-  def self.oauth_facebook_identity_model(controller)
-    Oauth::FacebookIdentity
+  def self.oauth2_facebook_identity_model(controller)
+    Oauth2::FacebookIdentity
   end
 
-  def self.oauth_github_identity_model(controller)
-    Oauth::GithubIdentity
+  def self.oauth2_github_identity_model(controller)
+    Oauth2::GithubIdentity
   end
 
   def self.authenticate(controller)
@@ -43,17 +43,17 @@ module EasyAuth
   end
 
   class << self
-    attr_accessor :oauth
+    attr_accessor :oauth2
   end
 
-  self.oauth = {}
+  self.oauth2 = {}
 
   def self.config(&block)
     yield self
   end
 
-  def self.oauth_client(provider, client_id, secret, scope)
-    oauth[provider] = OpenStruct.new :client_id => client_id, :secret => secret, :scope => scope
+  def self.oauth2_client(provider, client_id, secret, scope)
+    oauth2[provider] = OpenStruct.new :client_id => client_id, :secret => secret, :scope => scope
   end
 
   private

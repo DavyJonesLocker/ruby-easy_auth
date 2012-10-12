@@ -11,7 +11,7 @@ feature 'Google OAuth Authentication', :js do
   end
 
   scenario 'Handling a google callback' do
-    visit oauth_callback_path(:provider => :google, :code => 'test-auth-code')
+    visit oauth2_callback_path(:provider => :google, :code => 'test-auth-code')
 
     current_path.should eq dashboard_path
     page.should have_content '123456789'
@@ -29,7 +29,7 @@ feature 'Facebook OAuth Authentication', :js do
   end
 
   scenario 'Handling a Facebook callback' do
-    visit oauth_callback_path(:provider => :facebook, :code => 'test-auth-code')
+    visit oauth2_callback_path(:provider => :facebook, :code => 'test-auth-code')
 
     current_path.should eq dashboard_path
     page.should have_content '123456789'
@@ -47,7 +47,7 @@ feature 'Github OAuth Authentication', :js do
   end
 
   scenario 'Handling a Github callback' do
-    visit oauth_callback_path(:provider => :github, :code => 'test-auth-code')
+    visit oauth2_callback_path(:provider => :github, :code => 'test-auth-code')
 
     current_path.should eq dashboard_path
     page.should have_content '123456789'
