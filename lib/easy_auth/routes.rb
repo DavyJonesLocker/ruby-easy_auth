@@ -3,12 +3,18 @@ module ActionDispatch::Routing
     def easy_auth_routes
       easy_auth_session_routes
       easy_auth_password_reset_routes
+      easy_auth_oauth1_identity_routes
       easy_auth_oauth2_identity_routes
     end
 
     def easy_auth_oauth2_identity_routes
-      get  '/sign_in/oauth2/:provider'          => 'sessions#new',    :as => :oauth2_sign_in, :defaults => { :identity => :oauth2 }
+      get  '/sign_in/oauth2/:provider'          => 'sessions#new',    :as => :oauth2_sign_in,  :defaults => { :identity => :oauth2 }
       get  '/sign_in/oauth2/:provider/callback' => 'sessions#create', :as => :oauth2_callback, :defaults => { :identity => :oauth2 }
+    end
+
+    def easy_auth_oauth1_identity_routes
+      get  '/sign_in/oauth1/:provider'          => 'sessions#new',    :as => :oauth1_sign_in,  :defaults => { :identity => :oauth1 }
+      get  '/sign_in/oauth1/:provider/callback' => 'sessions#create', :as => :oauth1_callback, :defaults => { :identity => :oauth1 }
     end
 
     def easy_auth_session_routes

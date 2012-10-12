@@ -19,6 +19,14 @@ module EasyAuth
     send("oauth2_#{controller.params[:provider]}_identity_model", controller)
   end
 
+  def self.oauth1_identity_model(controller)
+    send("oauth1_#{controller.params[:provider]}_identity_model", controller)
+  end
+
+  def self.oauth1_twitter_identity_model(controller)
+    Oauth1::TwitterIdentity
+  end
+
   def self.oauth2_google_identity_model(controller)
     Oauth2::GoogleIdentity
   end
@@ -43,9 +51,10 @@ module EasyAuth
   end
 
   class << self
-    attr_accessor :oauth2
+    attr_accessor :oauth1, :oauth2
   end
 
+  self.oauth1 = {}
   self.oauth2 = {}
 
   def self.config(&block)
@@ -54,6 +63,10 @@ module EasyAuth
 
   def self.oauth2_client(provider, client_id, secret, scope)
     oauth2[provider] = OpenStruct.new :client_id => client_id, :secret => secret, :scope => scope
+  end
+
+  def self.oauth1_client(provider, client_id, secret, scope)
+    oauth1[provider] = OpenStruct.new :client_id => client_id, :secret => secret, :scope => scope
   end
 
   private
