@@ -8,14 +8,10 @@ module EasyAuth::Models::OauthIdentity
     user_info      = get_user_info(token)
     identity       = self.find_or_initialize_by_username user_info['id']
     identity.token = token.token
-
-    if identity.new_record? && account.nil?
-      account = EasyAuth.account_model.create(EasyAuth.account_model.identity_username_attribute => identity.username)
-    else
-      account = controller.current_account
-    end
+    account        = controller.current_account
 
     if identity.new_record?
+      account = EasyAuth.account_model.create(EasyAuth.account_model.identity_username_attribute => identity.username) if account.nil?
       identity.account = account
     end
 
