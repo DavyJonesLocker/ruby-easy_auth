@@ -4,7 +4,7 @@ module EasyAuth::Models::OauthIdentity
   def authenticate(controller)
     callback_url   = controller.oauth_callback_url(:provider => provider)
     code           = controller.params[:code]
-    token          = client.auth_code.get_token(code, :redirect_uri => callback_url)
+    token          = client.auth_code.get_token(code, token_options(callback_url))
     user_info      = get_user_info(token)
     identity       = self.find_or_initialize_by_username user_info['id']
     identity.token = token.token
@@ -24,6 +24,10 @@ module EasyAuth::Models::OauthIdentity
   end
 
   private
+
+  def token_options(callback_url)
+    { :redirect_uri => callback_url }
+  end
 
   def get_user_info(token)
     ActiveSupport::JSON.decode(token.get(user_info_url).body)

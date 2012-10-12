@@ -23,6 +23,10 @@ module EasyAuth
     Oauth::GoogleIdentity
   end
 
+  def self.oauth_facebook_identity_model(controller)
+    Oauth::FacebookIdentity
+  end
+
   def self.authenticate(controller)
     if identity_model = find_identity_model(controller)
       identity_model.authenticate(controller)
