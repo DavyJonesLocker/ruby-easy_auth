@@ -53,3 +53,21 @@ feature 'Github OAuth Authentication', :js do
     page.should have_content '123456789'
   end
 end
+
+feature 'Twitter OAuth Authentication', :js do
+  use_vcr_cassette 'twitter_oauth', :match_requests_on => [:uri], :decode_compressed_response => true
+
+  scenario 'Twitter link redirects to the Twitter OAuth url' do
+    visit sign_in_path
+
+    click_link 'Twitter'
+    current_url.should match /^https:\/\/api\.twitter\.com\/oauth/
+  end
+
+  scenario 'Handling a Twitter callback' do
+    visit oauth1_callback_path(:provider => :twitter, :oauth_token => 'test-auth-code')
+
+    current_path.should eq dashboard_path
+    page.should have_content '123456789'
+  end
+end

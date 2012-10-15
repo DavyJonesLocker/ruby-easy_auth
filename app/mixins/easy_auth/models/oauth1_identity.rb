@@ -7,7 +7,7 @@ module EasyAuth::Models::Oauth1Identity
     request_token  = OAuth::RequestToken.new(client, oauth_token)
     token          = request_token.get_access_token
     identity       = self.find_or_initialize_by_username token.params[:screen_name]
-    identity.token = token.token
+    identity.token = {:token => token.token, :secret => token.secret}
     account        = controller.current_account
 
     if identity.new_record?
@@ -29,10 +29,6 @@ module EasyAuth::Models::Oauth1Identity
     { :redirect_uri => callback_url }
   end
 
-  def get_user_info(token)
-    debugger
-    ActiveSupport::JSON.decode(token.get(user_info_url).body)
-  end
 
   def provider
     raise NotImplementedError
@@ -47,15 +43,7 @@ module EasyAuth::Models::Oauth1Identity
     request_token.authorize_url(:oauth_callback => callback_url)
   end
 
-  def user_info_url
-    raise NotImplementedError
-  end
-
   def authorize_url
-    raise NotImplementedError
-  end
-
-  def token_url
     raise NotImplementedError
   end
 

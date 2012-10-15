@@ -5,10 +5,6 @@ module EasyAuth::Models::Oauth1::TwitterIdentity
 
   private
 
-  def user_info_url
-    'https://api.twitter.com/1.1/account/settings.json'
-  end
-
   def site_url
     'https://api.twitter.com'
   end
