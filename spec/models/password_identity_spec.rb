@@ -11,7 +11,7 @@ describe PasswordIdentity do
   describe 'username' do
     before { create(:password_identity) }
     it { should     have_valid(:username).when('another_test@example.com') }
-    it { should_not have_valid(:username).when('test@example.com', nil, '') }
+    it { should_not have_valid(:username).when('test@example.com', 'TEST@EXAMPLE.COM', nil, '') }
   end
 
   describe 'password' do

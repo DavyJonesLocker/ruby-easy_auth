@@ -5,7 +5,7 @@ module EasyAuth::Models::PasswordIdentity
       has_secure_password
       attr_accessor :password_reset
       attr_accessible :username, :password, :password_confirmation, :remember
-      validates :username, :uniqueness => true, :presence => true
+      validates :username, :uniqueness => { :case_sensitive => false }, :presence => true
       validates :password, :presence => { :on => :create }
       validates :password, :presence => { :if => :password_reset }
       alias_attribute :password_digest, :token
