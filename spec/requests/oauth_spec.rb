@@ -71,3 +71,21 @@ feature 'Twitter OAuth Authentication', :js do
     page.should have_content '123456789'
   end
 end
+
+feature 'LinkedIn OAuth Authentication', :js do
+  use_vcr_cassette 'linkedin_oauth', :match_requests_on => [:uri], :decode_compressed_response => true
+
+  scenario 'LinkedIn link redirects to the LinkedIn OAuth url' do
+    visit sign_in_path
+
+    click_link 'LinkedIn'
+    current_url.should match /^https:\/\/www\.linkedin\.com\/uas\/oauth/
+  end
+
+  scenario 'Handling a LinkedIn callback' do
+    visit oauth1_callback_path(:provider => :linkedin, :oauth_token => 'test-auth-code')
+
+    current_path.should eq dashboard_path
+    page.should have_content '123456789'
+  end
+end
