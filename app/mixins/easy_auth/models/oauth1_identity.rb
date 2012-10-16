@@ -2,13 +2,16 @@ require 'oauth'
 
 module EasyAuth::Models::Oauth1Identity
   def authenticate(controller)
-    callback_url   = controller.oauth1_callback_url(:provider => provider)
-    oauth_token    = controller.params[:oauth_token]
-    request_token  = OAuth::RequestToken.new(client, oauth_token)
-    token          = request_token.get_access_token
-    identity       = self.find_or_initialize_by_username token.params[:screen_name]
-    identity.token = {:token => token.token, :secret => token.secret}
-    account        = controller.current_account
+    callback_url        = controller.oauth1_callback_url(:provider => provider)
+    oauth_token         = controller.params[:oauth_token]
+    oauth_verifier      = controller.params[:oauth_verifier]
+    access_token_secret = controller.session.delete('access_token_secret')
+    request_token       = OAuth::RequestToken.new(client, oauth_token, access_token_secret)
+    token               = request_token.get_access_token(:oauth_verifier => oauth_verifier)
+    username            = retrieve_username(token)
+    identity            = self.find_or_initialize_by_username username
+    identity.token      = {:token => token.token, :secret => token.secret}
+    account             = controller.current_account
 
     if identity.new_record?
       account = EasyAuth.account_model.create(EasyAuth.account_model.identity_username_attribute => identity.username) if account.nil?
@@ -20,7 +23,7 @@ module EasyAuth::Models::Oauth1Identity
   end
 
   def new_session(controller)
-    controller.redirect_to authenticate_url(controller.oauth1_callback_url(:provider => provider))
+    controller.redirect_to authenticate_url(controller.oauth1_callback_url(:provider => provider), controller.session)
   end
 
   private
@@ -29,21 +32,29 @@ module EasyAuth::Models::Oauth1Identity
     { :redirect_uri => callback_url }
   end
 
+  def client_options
+    { :site => site_url, :authorize_path => authorize_path }
+  end
 
   def provider
     raise NotImplementedError
   end
 
-  def client
-    @client ||= OAuth::Consumer.new(client_id, secret, :site => site_url, :authorize_url => authorize_url)
+  def retrieve_username(token)
+    raise NotImplementedError
   end
 
-  def authenticate_url(callback_url)
+  def client
+    @client ||= OAuth::Consumer.new(client_id, secret, client_options)
+  end
+
+  def authenticate_url(callback_url, session)
     request_token = client.get_request_token(:oauth_callback => callback_url)
+    session['access_token_secret'] = request_token.secret
     request_token.authorize_url(:oauth_callback => callback_url)
   end
 
-  def authorize_url
+  def authorize_path
     raise NotImplementedError
   end
 
