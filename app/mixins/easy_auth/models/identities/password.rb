@@ -1,4 +1,4 @@
-module EasyAuth::Models::PasswordIdentity
+module EasyAuth::Models::Identities::Password
   def self.included(base)
     base.class_eval do
       belongs_to :account, :polymorphic => true

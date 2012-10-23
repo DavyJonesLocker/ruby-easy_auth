@@ -1,4 +1,4 @@
-module EasyAuth::Models::Oauth2::GoogleIdentity
+module EasyAuth::Models::Identities::OAuth2::Google
   def authorize_url
     '/o/oauth2/auth'
   end

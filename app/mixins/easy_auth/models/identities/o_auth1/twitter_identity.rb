@@ -1,4 +1,4 @@
-module EasyAuth::Models::Oauth1::TwitterIdentity
+module EasyAuth::Models::Identities::OAuth1::Twitter
   def authorize_path
     '/oauth/authenticate'
   end

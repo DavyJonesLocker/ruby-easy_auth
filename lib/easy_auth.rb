@@ -4,7 +4,7 @@ require 'easy_auth/routes'
 
 module EasyAuth
   def self.identity_model
-    Identity
+    EasyAuth::Identity
   end
 
   def self.account_model
@@ -12,7 +12,7 @@ module EasyAuth
   end
 
   def self.password_identity_model(controller = nil)
-    PasswordIdentity
+    EasyAuth::Identities::Password
   end
 
   def self.oauth2_identity_model(controller)
@@ -24,23 +24,23 @@ module EasyAuth
   end
 
   def self.oauth1_twitter_identity_model(controller)
-    Oauth1::TwitterIdentity
+    EasyAuth::Identities::OAuth1::Twitter
   end
 
   def self.oauth1_linkedin_identity_model(controller)
-    Oauth1::LinkedinIdentity
+    EasyAuth::Identities::OAuth2::LinkedIn
   end
 
   def self.oauth2_google_identity_model(controller)
-    Oauth2::GoogleIdentity
+    EasyAuth::Identities::OAuth2::Google
   end
 
   def self.oauth2_facebook_identity_model(controller)
-    Oauth2::FacebookIdentity
+    EasyAuth::Identities::OAuth2::Facebook
   end
 
   def self.oauth2_github_identity_model(controller)
-    Oauth2::GithubIdentity
+    EasyAuth::Identities::OAuth2::Github
   end
 
   def self.authenticate(controller)

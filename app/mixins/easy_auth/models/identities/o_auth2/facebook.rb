@@ -1,4 +1,4 @@
-module EasyAuth::Models::Oauth2::FacebookIdentity
+module EasyAuth::Models::Identities::OAuth2::Facebook
   def authorize_url
     '/dialog/oauth'
   end

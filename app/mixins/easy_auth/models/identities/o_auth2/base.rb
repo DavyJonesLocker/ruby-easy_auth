@@ -1,6 +1,6 @@
 require 'oauth2'
 
-module EasyAuth::Models::Oauth2Identity
+module EasyAuth::Models::Identities::OAuth2::Base
   def authenticate(controller)
     callback_url   = controller.oauth2_callback_url(:provider => provider)
     code           = controller.params[:code]

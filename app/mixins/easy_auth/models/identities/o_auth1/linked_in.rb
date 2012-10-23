@@ -1,4 +1,4 @@
-module EasyAuth::Models::Oauth1::LinkedinIdentity
+module EasyAuth::Models::Identities::OAuth1::LinkedIn
   def authorize_path
     '/uas/oauth/authenticate'
   end

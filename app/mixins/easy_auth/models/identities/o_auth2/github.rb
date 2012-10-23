@@ -1,4 +1,4 @@
-module EasyAuth::Models::Oauth2::GithubIdentity
+module EasyAuth::Models::Identities::OAuth2::Github
   def authorize_url
     '/login/oauth/authorize'
   end

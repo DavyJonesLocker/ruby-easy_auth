@@ -1,6 +1,6 @@
 require 'oauth'
 
-module EasyAuth::Models::Oauth1Identity
+module EasyAuth::Models::Identities::OAuth1::Base
   def authenticate(controller)
     callback_url        = controller.oauth1_callback_url(:provider => provider)
     oauth_token         = controller.params[:oauth_token]
