@@ -11,7 +11,7 @@ feature 'Remember Me' do
     click_button 'Submit'
     Capybara.session_name = :browser_2
     user.reload
-    cookies['remember_token'] = user.identity.remember_token
+    cookies['remember_token'] = user.identities.first.remember_token
     visit root_path
     current_path.should eq dashboard_path
   end
@@ -33,7 +33,7 @@ feature 'Remember Me' do
     click_button 'Submit'
     visit sign_out_path
     Capybara.session_name = :browser_2
-    cookies['remember_token'] = user.identity.remember_token
+    cookies['remember_token'] = user.identities.first.remember_token
     visit root_path
     current_path.should_not eq dashboard_path
   end
