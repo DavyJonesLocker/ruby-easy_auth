@@ -10,7 +10,6 @@ module EasyAuth::Controllers::Sessions
   end
 
   def create
-    #debugger
     if identity = EasyAuth.authenticate(self)
       identity.set_account_session(session)
       if identity.remember

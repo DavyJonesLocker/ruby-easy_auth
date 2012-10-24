@@ -28,7 +28,7 @@ module EasyAuth
   end
 
   def self.oauth1_linkedin_identity_model(controller)
-    EasyAuth::Identities::OAuth2::LinkedIn
+    EasyAuth::Identities::OAuth1::LinkedIn
   end
 
   def self.oauth2_google_identity_model(controller)

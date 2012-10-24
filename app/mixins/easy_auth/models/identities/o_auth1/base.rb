@@ -2,7 +2,6 @@ require 'oauth'
 
 module EasyAuth::Models::Identities::OAuth1::Base
   def authenticate(controller)
-    callback_url        = controller.oauth1_callback_url(:provider => provider)
     oauth_token         = controller.params[:oauth_token]
     oauth_verifier      = controller.params[:oauth_verifier]
     access_token_secret = controller.session.delete('access_token_secret')
@@ -79,6 +78,6 @@ module EasyAuth::Models::Identities::OAuth1::Base
   end
 
   def provider
-    self.to_s.split('::').last.match(/(\w+)Identity/)[1].underscore.to_sym
+    self.to_s.split('::').last.underscore.to_sym
   end
 end
