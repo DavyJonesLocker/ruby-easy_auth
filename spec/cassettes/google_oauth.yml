@@ -42,9 +42,7 @@ http_interactions:
       - close
     body:
       encoding: US-ASCII
-      string: ! "{\n  \"access_token\" : \"dummy-access_token\",\n
-        \ \"token_type\" : \"Bearer\",\n  \"expires_in\" : 3377,\n  \"id_token\" :
-        \"dummy-id_token\"}"
+      string: "{ \"access_token\" : \"dummy-access_token\", \"token_type\" : \"Bearer\",  \"expires_in\" : 3377,  \"id_token\" : \"dummy-id_token\"}"
     http_version: '1.1'
   recorded_at: Thu, 11 Oct 2012 14:50:31 GMT
 - request:

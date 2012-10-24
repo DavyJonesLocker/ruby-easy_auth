@@ -113,9 +113,7 @@ http_interactions:
       - Tue, 16 Oct 2012 13:53:51 GMT
     body:
       encoding: US-ASCII
-      string: ! "{\n  \"firstName\": \"Test\",\n  \"headline\": \"\",\n
-        \ \"lastName\": \"User\",\n  \"siteStandardProfileRequest\": {\"url\":
-        \"http://www.linkedin.com/profile?viewProfile=&key=123456789&authToken=dummy&authType=name&trk=token\"}\n}"
+      string: "{ \"firstName\": \"Test\", \"headline\": \"\", \"lastName\": \"User\", \"siteStandardProfileRequest\": {\"url\": \"http://www.linkedin.com/profile?viewProfile=&key=123456789&authToken=dummy&authType=name&trk=token\"}}"
     http_version: '1.1'
   recorded_at: Tue, 16 Oct 2012 13:53:51 GMT
 recorded_with: VCR 2.2.1
