@@ -8,7 +8,7 @@ module EasyAuth::Models::Identities::OAuth1::Base
     request_token       = OAuth::RequestToken.new(client, oauth_token, access_token_secret)
     token               = request_token.get_access_token(:oauth_verifier => oauth_verifier)
     username            = retrieve_username(token)
-    identity            = self.find_or_initialize_by_username username
+    identity            = self.find_or_initialize_by_username username.to_s
     identity.token      = {:token => token.token, :secret => token.secret}
     account             = controller.current_account
 
