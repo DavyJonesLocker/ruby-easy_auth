@@ -15,7 +15,7 @@ module EasyAuth::Models::Identities::Password
 
   module ClassMethods
     def authenticate(controller)
-      attributes = controller.params[:password_identity]
+      attributes = controller.params[:identities_password]
       return nil if attributes.nil?
 
       if identity = where(arel_table[:username].matches(attributes[:username].try(&:strip))).first.try(:authenticate, attributes[:password])

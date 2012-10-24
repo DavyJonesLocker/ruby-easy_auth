@@ -4,7 +4,7 @@ describe EasyAuth::Models::Account do
   context '.identity_username_attribute' do
     before do
       class TestUser; end
-      TestUser.stubs(:has_one)
+      TestUser.stubs(:has_many)
       TestUser.stubs(:before_create)
       TestUser.stubs(:before_update)
       TestUser.stubs(:validates)

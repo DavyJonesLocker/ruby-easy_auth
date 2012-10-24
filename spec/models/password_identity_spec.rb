@@ -4,7 +4,7 @@ describe EasyAuth::Identities::Password do
   let(:params) { Hash.new }
   let(:controller) do
     controller = mock('Controller')
-    controller.stubs(:params).returns({:password_identity => params})
+    controller.stubs(:params).returns({:identities_password => params})
     controller
   end
 
