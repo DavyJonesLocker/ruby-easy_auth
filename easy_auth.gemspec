@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'fakeweb'
   s.add_development_dependency 'poltergeist'
   s.add_development_dependency 'capybara-email'
+  s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'valid_attribute'
   s.add_development_dependency 'factory_girl_rails', '~> 1.7.0'
   s.add_development_dependency 'factory_girl', '~> 2.6.0'

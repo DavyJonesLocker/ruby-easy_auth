@@ -78,6 +78,6 @@ module EasyAuth::Models::Identities::OAuth2::Base
   end
 
   def provider
-    self.to_s.split('::').last.match(/(\w+)Identity/)[1].underscore.to_sym
+    self.to_s.split('::').last.underscore.to_sym
   end
 end
