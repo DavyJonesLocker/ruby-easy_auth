@@ -1,7 +1,7 @@
 module EasyAuth::Controllers::Sessions
   def self.included(base)
     base.class_eval do
-      before_filter :no_authentication, :except => :destroy
+      before_filter :no_authentication, :only => :new
     end
   end
 
