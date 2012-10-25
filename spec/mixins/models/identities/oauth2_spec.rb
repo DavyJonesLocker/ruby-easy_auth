@@ -8,7 +8,7 @@ describe EasyAuth::Models::Identities::OAuth2::Base do
       end
       TestIdentity.stubs(:client).returns(client)
     end
-    let(:client) { OAuth2::Client.new('client_id', 'secret', :site => 'http://example.com', :authorize_url => '/auth', :token_url => '/token' ) }
+    let(:client)   { OAuth2::Client.new('client_id', 'secret', :site => 'http://example.com', :authorize_url => '/auth', :token_url => '/token' ) }
     let(:identity) { TestIdentity.new :token => 'token' }
 
     describe '.get_access_token' do
