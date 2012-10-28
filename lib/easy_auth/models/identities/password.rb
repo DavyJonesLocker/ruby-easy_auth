@@ -1,17 +1,24 @@
 require 'easy_auth/token_generator'
 
 module EasyAuth::Models::Identities::Password
+  include EasyAuth::TokenGenerator
+
   def self.included(base)
     base.class_eval do
-      include EasyAuth::TokenGenerator
-      belongs_to :account, :polymorphic => true
       has_secure_password
-      attr_accessor :password_reset
+
+      # Attributes
+      attr_accessor   :password_reset
       attr_accessible :username, :password, :password_confirmation, :remember
+      alias_attribute :password_digest, :token
+
+      # Relationships
+      belongs_to :account, :polymorphic => true
+
+      # Validations
       validates :username, :uniqueness => { :case_sensitive => false }, :presence => true
       validates :password, :presence => { :on => :create }
       validates :password, :presence => { :if => :password_reset }
-      alias_attribute :password_digest, :token
 
       def self.authenticate(controller)
         attributes = controller.params[:identities_password]

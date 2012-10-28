@@ -6,7 +6,6 @@ module EasyAuth::Models::Account
 
   def self.included(base)
     base.class_eval do
-      include EasyAuth::TokenGenerator
       unless respond_to?(:identity_username_attribute)
         def self.identity_username_attribute
           if column_names.include?('username')
@@ -19,18 +18,24 @@ module EasyAuth::Models::Account
         end
       end
 
-      def identity_username_attribute
-        self.send(self.class.identity_username_attribute)
-      end
+      # Attributes
+      attr_accessor   :password
+      attr_accessible :password, :password_confirmation
 
+      # Relationships
       has_many :identities, :class_name => 'EasyAuth::Identity', :as => :account, :dependent => :destroy
+
+      # Validations
+      validates :password, :presence => { :on => :create, :if => :run_password_identity_validations? }, :confirmation => true
+      validates identity_username_attribute, :presence => true, :if => :run_password_identity_validations?
+
+      # Callbacks
       before_create :setup_password_identity, :if => :run_password_identity_validations?
       before_update :update_password_identity, :if => :run_password_identity_validations?
 
-      attr_accessor :password
-      validates :password, :presence => { :on => :create, :if => :run_password_identity_validations? }, :confirmation => true
-      attr_accessible :password, :password_confirmation
-      validates identity_username_attribute, :presence => true, :if => :run_password_identity_validations?
+      def identity_username_attribute
+        self.send(self.class.identity_username_attribute)
+      end
     end
   end
 
@@ -55,14 +60,14 @@ module EasyAuth::Models::Account
   private
 
   def setup_password_identity
-    self.identities << EasyAuth.password_identity_model.new(identity_attributes)
+    self.identities << EasyAuth.password_identity_model.new(password_identity_attributes)
   end
 
   def update_password_identity
-    self.password_identity.update_attributes(identity_attributes)
+    self.password_identity.update_attributes(password_identity_attributes)
   end
 
-  def identity_attributes
+  def password_identity_attributes
     { :username => self.identity_username_attribute, :password => self.password, :password_confirmation => self.password_confirmation }
   end
 end
