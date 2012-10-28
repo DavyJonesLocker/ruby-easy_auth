@@ -1,5 +1,6 @@
 module EasyAuth::Models::Account
   class NoIdentityUsernameError < StandardError; end
+
   def self.included(base)
     base.class_eval do
       unless respond_to?(:identity_username_attribute)

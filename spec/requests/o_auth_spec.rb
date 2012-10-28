@@ -11,7 +11,7 @@ feature 'Google OAuth Authentication', :js do
   end
 
   scenario 'Handling a google callback' do
-    visit oauth2_callback_path(:provider => :google, :code => 'test-auth-code')
+    visit o_auth2_callback_path(:provider => :google, :code => 'test-auth-code')
 
     current_path.should eq dashboard_path
     page.should have_content '123456789'
@@ -29,7 +29,7 @@ feature 'Facebook OAuth Authentication', :js do
   end
 
   scenario 'Handling a Facebook callback' do
-    visit oauth2_callback_path(:provider => :facebook, :code => 'test-auth-code')
+    visit o_auth2_callback_path(:provider => :facebook, :code => 'test-auth-code')
 
     current_path.should eq dashboard_path
     page.should have_content '123456789'
@@ -47,7 +47,7 @@ feature 'Github OAuth Authentication', :js do
   end
 
   scenario 'Handling a Github callback' do
-    visit oauth2_callback_path(:provider => :github, :code => 'test-auth-code')
+    visit o_auth2_callback_path(:provider => :github, :code => 'test-auth-code')
 
     current_path.should eq dashboard_path
     page.should have_content '123456789'
@@ -65,7 +65,7 @@ feature 'Twitter OAuth Authentication', :js do
   end
 
   scenario 'Handling a Twitter callback' do
-    visit oauth1_callback_path(:provider => :twitter, :oauth_token => 'test-auth-code')
+    visit o_auth1_callback_path(:provider => :twitter, :oauth_token => 'test-auth-code')
 
     current_path.should eq dashboard_path
     page.should have_content '123456789'
@@ -83,7 +83,7 @@ feature 'LinkedIn OAuth Authentication', :js do
   end
 
   scenario 'Handling a LinkedIn callback' do
-    visit oauth1_callback_path(:provider => :linkedin, :oauth_token => 'test-auth-code')
+    visit o_auth1_callback_path(:provider => :linkedin, :oauth_token => 'test-auth-code')
 
     current_path.should eq dashboard_path
     page.should have_content '123456789'

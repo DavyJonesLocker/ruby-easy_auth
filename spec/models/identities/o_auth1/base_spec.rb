@@ -8,6 +8,7 @@ describe EasyAuth::Models::Identities::OAuth1::Base do
       end
       TestIdentity.stubs(:client).returns(client)
     end
+
     let(:client)   { OAuth::Consumer.new('client_id', 'secret', :site => 'http://example.com', :authorize_url => '/auth', :token_url => '/token' ) }
     let(:identity) { TestIdentity.new :token => { :token => 'token', :secret => 'token-secret' } }
 
@@ -17,17 +18,17 @@ describe EasyAuth::Models::Identities::OAuth1::Base do
         access_token.class.should eq OAuth::AccessToken
       end
 
-      it 'sets the token\'s consumer to the class\'s client' do
+      it "sets the token's consumer to the class's client" do
         access_token = TestIdentity.get_access_token identity
         access_token.consumer.should eq client
       end
 
-      it 'sets the token\'s token to the token passed in' do
+      it "sets the token's token to the token passed in" do
         access_token = TestIdentity.get_access_token identity
         access_token.token.should eq 'token'
       end
 
-      it 'sets the token\'s secret to the secret passed in' do
+      it "sets the token's secret to the secret passed in" do
         access_token = TestIdentity.get_access_token identity
         access_token.secret.should eq 'token-secret'
       end
@@ -39,17 +40,17 @@ describe EasyAuth::Models::Identities::OAuth1::Base do
         access_token.class.should eq OAuth::AccessToken
       end
 
-      it 'sets the token\'s consumer to the class\'s client' do
+      it "sets the token's consumer to the class's client" do
         access_token = identity.get_access_token
         access_token.consumer.should eq client
       end
 
-      it 'sets the token\'s token to the token passed in' do
+      it "sets the token's token to the token passed in" do
         access_token = identity.get_access_token
         access_token.token.should eq 'token'
       end
 
-      it 'sets the token\'s secret to the secret passed in' do
+      it "sets the token's secret to the secret passed in" do
         access_token = identity.get_access_token
         access_token.secret.should eq 'token-secret'
       end

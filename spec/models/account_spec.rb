@@ -55,7 +55,7 @@ describe EasyAuth::Models::Account do
 
       it 'raises an Exception as no appropriate identity username attribute is available' do
         lambda {
-          TestUser.instance_eval { include(EasyAuth::Models::Account) }
+          TestUser.send(:include, EasyAuth::Models::Account)
         }.should raise_exception(EasyAuth::Models::Account::NoIdentityUsernameError)
       end
     end

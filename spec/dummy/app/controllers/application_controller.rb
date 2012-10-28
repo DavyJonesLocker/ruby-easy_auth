@@ -1,4 +1,4 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  include EasyAuth::Helpers
+  include EasyAuthHelper
 end

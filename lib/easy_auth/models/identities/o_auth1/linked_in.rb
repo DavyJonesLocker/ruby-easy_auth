@@ -11,9 +11,8 @@ module EasyAuth::Models::Identities::OAuth1::LinkedIn
 
   def retrieve_username(token)
     info = ActiveSupport::JSON.decode(token.get('http://api.linkedin.com/v1/people/~?format=json').body)
-    uri = URI.parse info['siteStandardProfileRequest']['url']
-    query_hash = CGI.parse uri.query
-    query_hash['key'].first
+    uri  = URI.parse info['siteStandardProfileRequest']['url']
+    CGI.parse(uri.query)['key'].first
   end
 
   def client_options
