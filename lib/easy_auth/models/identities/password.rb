@@ -1,6 +1,9 @@
+require 'easy_auth/token_generator'
+
 module EasyAuth::Models::Identities::Password
   def self.included(base)
     base.class_eval do
+      include EasyAuth::TokenGenerator
       belongs_to :account, :polymorphic => true
       has_secure_password
       attr_accessor :password_reset
@@ -9,25 +12,22 @@ module EasyAuth::Models::Identities::Password
       validates :password, :presence => { :on => :create }
       validates :password, :presence => { :if => :password_reset }
       alias_attribute :password_digest, :token
-      extend ClassMethods
-    end
-  end
 
-  module ClassMethods
-    def authenticate(controller)
-      attributes = controller.params[:identities_password]
-      return nil if attributes.nil?
+      def self.authenticate(controller)
+        attributes = controller.params[:identities_password]
+        return nil if attributes.nil?
 
-      if identity = where(arel_table[:username].matches(attributes[:username].try(&:strip))).first.try(:authenticate, attributes[:password])
-        identity.remember = attributes[:remember]
-        identity
-      else
-        nil
+        if identity = where(arel_table[:username].matches(attributes[:username].try(&:strip))).first.try(:authenticate, attributes[:password])
+          identity.remember = attributes[:remember]
+          identity
+        else
+          nil
+        end
       end
-    end
 
-    def new_session(controller)
-      controller.instance_variable_set(:@identity, self.new)
+      def self.new_session(controller)
+        controller.instance_variable_set(:@identity, self.new)
+      end
     end
   end
 
@@ -55,11 +55,5 @@ module EasyAuth::Models::Identities::Password
 
   def remember_time
     1.year
-  end
-
-  private
-
-  def _generate_token(type)
-    token = BCrypt::Password.create("#{id}-#{type}_token-#{DateTime.current}")
   end
 end

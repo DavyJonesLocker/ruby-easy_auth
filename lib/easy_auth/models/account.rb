@@ -1,8 +1,12 @@
+require 'easy_auth/token_generator'
+
 module EasyAuth::Models::Account
+  include EasyAuth::TokenGenerator
   class NoIdentityUsernameError < StandardError; end
 
   def self.included(base)
     base.class_eval do
+      include EasyAuth::TokenGenerator
       unless respond_to?(:identity_username_attribute)
         def self.identity_username_attribute
           if column_names.include?('username')
@@ -39,8 +43,7 @@ module EasyAuth::Models::Account
   end
 
   def generate_session_token!
-    token = BCrypt::Password.create("#{id}-session_token-#{DateTime.current}")
-    self.update_column(:session_token, token)
+    self.update_column(:session_token, _generate_token(:session))
     self.session_token
   end
 
