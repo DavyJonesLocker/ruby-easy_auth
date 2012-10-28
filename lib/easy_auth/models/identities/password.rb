@@ -1,5 +1,3 @@
-require 'easy_auth/token_generator'
-
 module EasyAuth::Models::Identities::Password
   include EasyAuth::TokenGenerator
 

@@ -10,6 +10,7 @@ module EasyAuth
   autoload :Mailers
   autoload :Models
   autoload :Routes
+  autoload :TokenGenerator
 
   def self.identity_model
     EasyAuth::Identity

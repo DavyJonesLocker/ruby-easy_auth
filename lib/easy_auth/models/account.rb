@@ -1,5 +1,3 @@
-require 'easy_auth/token_generator'
-
 module EasyAuth::Models::Account
   include EasyAuth::TokenGenerator
   class NoIdentityUsernameError < StandardError; end
