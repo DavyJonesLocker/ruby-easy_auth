@@ -20,13 +20,13 @@ module EasyAuth::Models::Account
       end
 
       has_many :identities, :class_name => 'EasyAuth::Identity', :as => :account, :dependent => :destroy
-      before_create :setup_password_identity, :if => :should_run_password_identity_validations?
-      before_update :update_password_identity, :if => :should_run_password_identity_validations?
+      before_create :setup_password_identity, :if => :run_password_identity_validations?
+      before_update :update_password_identity, :if => :run_password_identity_validations?
 
       attr_accessor :password
-      validates :password, :presence => { :on => :create, :if => :should_run_password_identity_validations? }, :confirmation => true
+      validates :password, :presence => { :on => :create, :if => :run_password_identity_validations? }, :confirmation => true
       attr_accessible :password, :password_confirmation
-      validates identity_username_attribute, :presence => true, :if => :should_run_password_identity_validations?
+      validates identity_username_attribute, :presence => true, :if => :run_password_identity_validations?
     end
   end
 
@@ -34,7 +34,7 @@ module EasyAuth::Models::Account
     identities.select{ |identity| EasyAuth.password_identity_model === identity }.first
   end
 
-  def should_run_password_identity_validations?
+  def run_password_identity_validations?
     (self.new_record? && self.password.present?) || self.password_identity.present?
   end
 
