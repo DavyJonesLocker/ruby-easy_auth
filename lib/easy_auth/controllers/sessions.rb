@@ -31,15 +31,21 @@ module EasyAuth::Controllers::Sessions
 
   private
 
-  def after_successful_sign_in(identity)
-    redirect_to session.delete(:requested_path) || after_successful_sign_in_url(identity), :notice => I18n.t('easy_auth.sessions.create.notice')
+  [:successful_sign_in, :successful_sign_in_url, :failed_sign_in].each do |method_name|
+    define_method "after_#{method_name}" do |identity|
+      send("#{__method__}_with_#{params[:identity]}", identity) || send("#{__method__}_default", identity)
+    end
   end
 
-  def after_successful_sign_in_url(identity)
+  def after_successful_sign_in_default(identity)
+    redirect_to(session.delete(:requested_path) || after_successful_sign_in_url(identity), :notice => I18n.t('easy_auth.sessions.create.notice'))
+  end
+
+  def after_successful_sign_in_url_default(identity)
     identity.account
   end
 
-  def after_failed_sign_in(identity)
+  def after_failed_sign_in_default(identity)
     flash.now[:error] = I18n.t('easy_auth.sessions.create.error')
     render :new
   end
@@ -56,5 +62,12 @@ module EasyAuth::Controllers::Sessions
 
   def no_authentication_url
     main_app.root_url
+  end
+
+  def method_missing(method_name, *args)
+    # Swallow exceptions for identity callbacks
+    unless method_name =~ /after_\w+_with_\w+/
+      super
+    end
   end
 end
