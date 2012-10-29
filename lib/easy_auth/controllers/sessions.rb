@@ -35,6 +35,17 @@ module EasyAuth::Controllers::Sessions
     define_method "after_#{method_name}" do |identity|
       send("#{__method__}_with_#{params[:identity]}", identity) || send("#{__method__}_default", identity)
     end
+
+    [:o_auth1, :o_auth2].each do |identity|
+      define_method "after_#{method_name}_with_#{identity}" do |identity|
+        send("#{__method__}_for_#{params[:provider]}", identity)
+      end
+
+      {:o_auth1 => [:linked_in, :twitter], :o_auth2 => [:facebook, :github, :google]}[identity].each do |provider|
+        define_method "after_#{method_name}_with_#{identity}_for_#{provider}" do |identity|
+        end
+      end
+    end
   end
 
   def after_successful_sign_in_default(identity)
