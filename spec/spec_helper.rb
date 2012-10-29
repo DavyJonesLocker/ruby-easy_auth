@@ -3,6 +3,10 @@ begin
   require 'debugger'
 rescue LoadError
 end
+begin
+  require 'ruby-debug'
+rescue LoadError
+end
 require 'bundler/setup'
 
 ENV['RAILS_ENV'] = 'test'

@@ -1,0 +1,71 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://github.com/login/oauth/access_token
+    body:
+      encoding: US-ASCII
+      string: grant_type=authorization_code&code=test-auth-code&client_id=dummy_id&client_secret=dummy_secret&redirect_uri=http%3A%2F%2F127.0.0.1%3A3999%2Fsign_in%2Foauth%2Fgithub%2Fcallback
+    headers:
+      content-type:
+      - application/x-www-form-urlencoded
+      accept:
+      - ! '*/*'
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      server:
+      - nginx
+      date:
+      - Fri, 12 Oct 2012 14:57:01 GMT
+      content-type:
+      - application/x-www-form-urlencoded; charset=utf-8
+      connection:
+      - close
+      status:
+      - 200 OK
+      x-runtime:
+      - '5'
+      content-length:
+      - '27'
+      strict-transport-security:
+      - max-age=2592000
+      cache-control:
+      - private, max-age=0, must-revalidate
+    body:
+      encoding: US-ASCII
+      string: access_token=dummy_access_token&token_type=bearer
+    http_version: '1.1'
+  recorded_at: Fri, 12 Oct 2012 14:57:02 GMT
+- request:
+    method: get
+    uri: https://api.github.com/user
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      authorization:
+      - Bearer dummy_access_token
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      accept:
+      - ! '*/*'
+      user-agent:
+      - Ruby
+      connection:
+      - close
+  response:
+    status:
+      code: 200
+    headers:
+    body:
+      encoding: ASCII-8BIT
+      string: ! "{\"type\":\"User\",\"hireable\":false,\"urls\":{\"self\":\"https://api.github.com/users/test-user\"},\"avatar_url\":\"https://secure.gravatar.com/avatar/fake_gravatar?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png\",\"created_at\":\"2009-10-24T17:45:14Z\",\"bio\":\"\",\"company\":\"Fake Company\",\"email\":null,\"public_gists\":30,\"followers\":12,\"following\":11,\"name\":\"Test User\",\"blog\":\"example.com\",\"location\":\"Boston, MA\",\"url\":\"https://api.github.com/users/test-user\",\"gravatar_id\":\"dummy-gravatar\",\"public_repos\":8,\"id\":123456789,\"login\":\"testuser\",\"html_url\":\"https://github.com/testuser\"}"
+  recorded_at: Fri, 12 Oct 2012 15:08:09 GMT
+recorded_with: VCR 2.2.1

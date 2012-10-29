@@ -1,0 +1,116 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.twitter.com/oauth/request_token
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*'
+      user-agent:
+      - OAuth gem v0.4.7
+      content-length:
+      - '0'
+      connection:
+      - close
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Mon, 15 Oct 2012 13:06:46 GMT
+      status:
+      - 200 OK
+      x-transaction:
+      - dcbf2ba0ef4d56f4
+      x-mid:
+      - 90d3ea687d7f483a44ba92f69a324cc0cc709a49
+      expires:
+      - Tue, 31 Mar 1981 05:00:00 GMT
+      etag:
+      - ! '"8d05f4b405ba0646543e22e91851b7cb"'
+      x-runtime:
+      - '0.03111'
+      cache-control:
+      - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+      x-frame-options:
+      - SAMEORIGIN
+      last-modified:
+      - Mon, 15 Oct 2012 13:06:46 GMT
+      content-type:
+      - text/html; charset=utf-8
+      content-length:
+      - '144'
+      pragma:
+      - no-cache
+      set-cookie:
+      vary:
+      - Accept-Encoding
+      server:
+      - tfe
+    body:
+      encoding: US-ASCII
+      string: oauth_token=test-oauth-token&oauth_token_secret=fake-secret&oauth_callback_confirmed=true
+    http_version: '1.1'
+  recorded_at: Mon, 15 Oct 2012 13:06:52 GMT
+- request:
+    method: post
+    uri: https://api.twitter.com/oauth/access_token
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*'
+      user-agent:
+      - OAuth gem v0.4.7
+      content-length:
+      - '0'
+      connection:
+      - close
+  response:
+    status:
+      code: 200
+    headers:
+      date:
+      - Mon, 15 Oct 2012 13:06:48 GMT
+      status:
+      - 200 OK
+      cache-control:
+      - no-cache, no-store, must-revalidate, pre-check=0, post-check=0
+      content-length:
+      - '136'
+      content-type:
+      - text/html; charset=utf-8
+      www-authenticate:
+      - OAuth realm="https://api.twitter.com"
+      expires:
+      - Tue, 31 Mar 1981 05:00:00 GMT
+      pragma:
+      - no-cache
+      x-transaction:
+      - b77fb9312a1d1afb
+      last-modified:
+      - Mon, 15 Oct 2012 13:06:48 GMT
+      x-frame-options:
+      - SAMEORIGIN
+      x-mid:
+      - cfcda409e707411297f9829508fb14d56076e8e9
+      set-cookie:
+      - k=10.36.36.110.1350306408632143; path=/; expires=Mon, 22-Oct-12 13:06:48 GMT;
+        domain=.twitter.com
+      - guest_id=v1%3A135030640864583453; domain=.twitter.com; path=/; expires=Thu,
+        16-Oct-2014 01:06:48 GMT
+      vary:
+      - Accept-Encoding
+      server:
+      - tfe
+    body:
+      encoding: US-ASCII
+      string: ! "oauth_token=test-oauth-token&oauth_token_secret=dummy-secret&user_id=123456789&screen_name=123456789"
+    http_version: '1.1'
+  recorded_at: Mon, 15 Oct 2012 13:06:54 GMT
+recorded_with: VCR 2.2.1
