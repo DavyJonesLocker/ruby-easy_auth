@@ -4,7 +4,7 @@ feature 'Google OAuth Authentication', :js do
   use_vcr_cassette 'google_oauth', :match_requests_on => [:uri]
 
   scenario 'Google link redirects to the Google OAuth url' do
-    visit sign_in_path
+    visit root_path
 
     click_link 'Google'
     current_url.should match /^https:\/\/accounts.google.com\//
@@ -22,7 +22,7 @@ feature 'Facebook OAuth Authentication', :js do
   use_vcr_cassette 'facebook_oauth', :match_requests_on => [:uri]
 
   scenario 'Facebook link redirects to the Facebook OAuth url' do
-    visit sign_in_path
+    visit root_path
 
     click_link 'Facebook'
     current_url.should match /^https:\/\/www.facebook.com\/dialog/
@@ -40,7 +40,7 @@ feature 'Github OAuth Authentication', :js do
   use_vcr_cassette 'github_oauth', :match_requests_on => [:uri], :decode_compressed_response => true
 
   scenario 'Github link redirects to the Github OAuth url' do
-    visit sign_in_path
+    visit root_path
 
     click_link 'Github'
     current_url.should match /^https:\/\/github.com\/login/
@@ -58,7 +58,7 @@ feature 'Twitter OAuth Authentication', :js do
   use_vcr_cassette 'twitter_oauth', :match_requests_on => [:uri], :decode_compressed_response => true
 
   scenario 'Twitter link redirects to the Twitter OAuth url' do
-    visit sign_in_path
+    visit root_path
 
     click_link 'Twitter'
     current_url.should match /^https:\/\/api\.twitter\.com\/oauth/
@@ -76,7 +76,7 @@ feature 'LinkedIn OAuth Authentication', :js do
   use_vcr_cassette 'linkedin_oauth', :match_requests_on => [:uri], :decode_compressed_response => true
 
   scenario 'LinkedIn link redirects to the LinkedIn OAuth url' do
-    visit sign_in_path
+    visit root_path
 
     click_link 'LinkedIn'
     current_url.should match /^https:\/\/www\.linkedin\.com\/uas\/oauth/

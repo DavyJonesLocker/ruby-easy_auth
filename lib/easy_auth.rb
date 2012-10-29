@@ -20,10 +20,6 @@ module EasyAuth
     User
   end
 
-  def self.password_identity_model(controller = nil)
-    EasyAuth::Identities::Password
-  end
-
   def self.o_auth2_identity_model(controller)
     send("o_auth2_#{controller.params[:provider]}_identity_model", controller)
   end

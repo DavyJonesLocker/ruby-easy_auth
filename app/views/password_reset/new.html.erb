@@ -1,9 +1,0 @@
-<%= form_for @identity, :url => main_app.password_reset_path, :method => :post do |f| %>
-  <p>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-  </p>
-  <p>
-    <%= f.submit 'Submit' %>
-  </p>
-<% end %>
