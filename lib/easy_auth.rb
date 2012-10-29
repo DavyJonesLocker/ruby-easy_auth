@@ -33,23 +33,23 @@ module EasyAuth
   end
 
   def self.o_auth1_twitter_identity_model(controller)
-    EasyAuth::Identities::o_auth1::Twitter
+    EasyAuth::Identities::OAuth1::Twitter
   end
 
   def self.o_auth1_linkedin_identity_model(controller)
-    EasyAuth::Identities::o_auth1::LinkedIn
+    EasyAuth::Identities::OAuth1::LinkedIn
   end
 
   def self.o_auth2_google_identity_model(controller)
-    EasyAuth::Identities::o_auth2::Google
+    EasyAuth::Identities::OAuth2::Google
   end
 
   def self.o_auth2_facebook_identity_model(controller)
-    EasyAuth::Identities::o_auth2::Facebook
+    EasyAuth::Identities::OAuth2::Facebook
   end
 
   def self.o_auth2_github_identity_model(controller)
-    EasyAuth::Identities::o_auth2::Github
+    EasyAuth::Identities::OAuth2::Github
   end
 
   def self.authenticate(controller)

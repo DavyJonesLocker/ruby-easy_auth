@@ -30,7 +30,7 @@ module EasyAuth::Models::Identities::OAuth1::Base
     end
 
     def new_session(controller)
-      controller.redirect_to authenticate_url(controller.oauth1_callback_url(:provider => provider), controller.session)
+      controller.redirect_to authenticate_url(controller.o_auth1_callback_url(:provider => provider), controller.session)
     end
 
     def get_access_token(identity)
@@ -86,7 +86,7 @@ module EasyAuth::Models::Identities::OAuth1::Base
     end
 
     def settings
-      EasyAuth.oauth1[provider]
+      EasyAuth.o_auth1[provider]
     end
 
     def provider

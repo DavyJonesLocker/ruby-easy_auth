@@ -9,7 +9,7 @@ module EasyAuth::Models::Identities::OAuth2::Base
 
   module ClassMethods
     def authenticate(controller)
-      callback_url   = controller.oauth2_callback_url(:provider => provider)
+      callback_url   = controller.o_auth2_callback_url(:provider => provider)
       code           = controller.params[:code]
       token          = client.auth_code.get_token(code, token_options(callback_url))
       user_info      = get_user_info(token)
@@ -27,7 +27,7 @@ module EasyAuth::Models::Identities::OAuth2::Base
     end
 
     def new_session(controller)
-      controller.redirect_to authenticate_url(controller.oauth2_callback_url(:provider => provider))
+      controller.redirect_to authenticate_url(controller.o_auth2_callback_url(:provider => provider))
     end
 
     def get_access_token(identity)
@@ -85,7 +85,7 @@ module EasyAuth::Models::Identities::OAuth2::Base
     end
 
     def settings
-      EasyAuth.oauth2[provider]
+      EasyAuth.o_auth2[provider]
     end
 
     def provider
