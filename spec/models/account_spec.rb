@@ -60,6 +60,17 @@ describe EasyAuth::Models::Account do
         }.should raise_exception(EasyAuth::Models::Account::NoIdentityUsernameError)
       end
     end
+
+    context 'when .identity_username_attribute is overridden' do
+      before do
+        TestUser.stubs(:identity_username_attribute).returns(:name)
+        TestUser.send(:include, EasyAuth::Models::Account)
+      end
+
+      it 'returns :name' do
+        TestUser.identity_username_attribute.should eq :name
+      end
+    end
   end
 
   describe '#generate_session_token!' do

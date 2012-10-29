@@ -1,26 +1,27 @@
 module EasyAuth::Models::Account
   include EasyAuth::TokenGenerator
-  class NoIdentityUsernameError < StandardError; end
+  extend  ActiveSupport::Concern
+  class   NoIdentityUsernameError < StandardError; end
 
-  def self.included(base)
-    base.class_eval do
-      unless respond_to?(:identity_username_attribute)
-        def self.identity_username_attribute
-          if column_names.include?('username')
-            :username
-          elsif column_names.include?('email')
-            :email
-          else
-            raise EasyAuth::Models::Account::NoIdentityUsernameError, 'your model must have either a #username or #email attribute. Or you must override the .identity_username_attribute class method'
-          end
-        end
-      end
+  included do
+    # Relationships
+    has_many :identities, :class_name => 'EasyAuth::Identity', :as => :account, :dependent => :destroy
 
-      # Relationships
-      has_many :identities, :class_name => 'EasyAuth::Identity', :as => :account, :dependent => :destroy
+    def identity_username_attribute
+      self.send(self.class.identity_username_attribute)
+    end
+  end
 
-      def identity_username_attribute
-        self.send(self.class.identity_username_attribute)
+  module ClassMethods
+    def identity_username_attribute
+      if respond_to?(:super)
+        super
+      elsif column_names.include?('username')
+        :username
+      elsif column_names.include?('email')
+        :email
+      else
+        raise EasyAuth::Models::Account::NoIdentityUsernameError, 'your model must have either a #username or #email attribute. Or you must override the .identity_username_attribute class method'
       end
     end
   end
