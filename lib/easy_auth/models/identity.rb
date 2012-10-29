@@ -8,6 +8,7 @@ module EasyAuth::Models::Identity
 
   module ClassMethods
     def authenticate(attributes = nil)
+      raise NotImplementedError
     end
   end
 
