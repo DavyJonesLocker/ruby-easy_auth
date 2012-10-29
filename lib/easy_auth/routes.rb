@@ -1,8 +1,9 @@
 module EasyAuth::Routes
   def easy_auth_routes
     get  '/sign_out' => 'sessions#destroy', :as => :sign_out
-    easy_auth_o_auth1_routes
-    easy_auth_o_auth2_routes
+    methods.grep(/easy_auth_\w+_routes/).each do |routes|
+      send(routes)
+    end
   end
 
   def easy_auth_o_auth1_routes
