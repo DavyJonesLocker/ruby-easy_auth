@@ -9,6 +9,7 @@ module EasyAuth
   autoload :Controllers
   autoload :Mailers
   autoload :Models
+  autoload :ReverseConcern
   autoload :Routes
   autoload :TokenGenerator
 

@@ -1,9 +1,9 @@
 module EasyAuth::Models::Account
   include EasyAuth::TokenGenerator
-  extend  ActiveSupport::Concern
+  extend  EasyAuth::ReverseConcern
   class   NoIdentityUsernameError < StandardError; end
 
-  included do
+  reverse_included do
     # Relationships
     has_many :identities, :class_name => 'EasyAuth::Identity', :as => :account, :dependent => :destroy
 
