@@ -49,7 +49,11 @@ module EasyAuth::Models::Identities::OAuth2::Base
     end
 
     def client
-      @client ||= OAuth2::Client.new(client_id, secret, :site => site_url, :authorize_url => authorize_url, :token_url => token_url)
+      @client ||= OAuth2::Client.new(client_id, secret, client_options)
+    end
+
+    def client_options
+      { :site => site_url, :authorize_url => authorize_url, :token_url => token_url }
     end
 
     def authenticate_url(callback_url)
