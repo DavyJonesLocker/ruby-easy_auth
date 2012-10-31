@@ -1,7 +1,7 @@
-require 'easy_auth/engine'
-require 'easy_auth/version'
 require 'active_support'
 require 'bcrypt'
+require 'easy_auth/engine'
+require 'easy_auth/version'
 
 module EasyAuth
   extend ActiveSupport::Autoload
