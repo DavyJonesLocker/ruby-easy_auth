@@ -1,6 +1,7 @@
 module EasyAuth::Models::Identity
   def self.included(base)
     base.class_eval do
+      self.table_name = :identities
       belongs_to :account, :polymorphic => true
       extend ClassMethods
     end
