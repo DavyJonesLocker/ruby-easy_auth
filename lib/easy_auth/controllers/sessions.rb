@@ -8,7 +8,7 @@ module EasyAuth::Controllers::Sessions
   def create
     if identity = EasyAuth.authenticate(self)
       identity.set_account_session(session)
-      identity.remember = params[params[:identity]][:remember]
+      identity.remember = params[ActiveModel::Naming.param_key(EasyAuth.find_identity_model(self).new)][:remember]
       if identity.remember
         cookies[:remember_token] = { :value => identity.generate_remember_token!, :expires => identity.remember_time.from_now }
       end
