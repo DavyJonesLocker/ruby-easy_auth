@@ -1,8 +1,6 @@
 def sign_in_with(account)
   visit sign_in_path
-  fill_in 'Username', :with => account.email
-  fill_in 'Password', :with => account.password
-  click_button 'Submit'
+  click_button 'Sign in'
 
   current_path.should eq dashboard_path
   page.should have_content account.email

@@ -1,4 +1,6 @@
 module EasyAuth::Models::Identity
+  include EasyAuth::TokenGenerator
+
   def self.included(base)
     base.class_eval do
       self.table_name = :identities
@@ -8,8 +10,12 @@ module EasyAuth::Models::Identity
   end
 
   module ClassMethods
-    def authenticate(attributes = nil)
+    def authenticate(controller = nil)
       raise NotImplementedError
+    end
+
+    def new_session(controller)
+      controller.instance_variable_set(:@identity, self.new)
     end
   end
 
@@ -32,11 +38,5 @@ module EasyAuth::Models::Identity
 
   def remember_time
     1.year
-  end
-
-  private
-
-  def _generate_token(type)
-    token = BCrypt::Password.create("#{id}-#{type}_token-#{DateTime.current}")
   end
 end
