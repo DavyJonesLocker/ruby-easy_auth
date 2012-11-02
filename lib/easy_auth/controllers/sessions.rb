@@ -8,7 +8,7 @@ module EasyAuth::Controllers::Sessions
   def create
     if identity = EasyAuth.authenticate(self)
       identity.set_account_session(session)
-      identity.remember = params[ActiveModel::Naming.param_key(EasyAuth.find_identity_model(self).new)][:remember]
+      set_remember(identity)
       if identity.remember
         cookies[:remember_token] = { :value => identity.generate_remember_token!, :expires => identity.remember_time.from_now }
       end
@@ -75,6 +75,12 @@ module EasyAuth::Controllers::Sessions
     # Swallow exceptions for identity callbacks
     unless method_name =~ /after_\w+_with_\w+/
       super
+    end
+  end
+
+  def set_remember(identity)
+    if identity_attributes = params[ActiveModel::Naming.param_key(EasyAuth.find_identity_model(self).new)]
+      identity.remember = identity_attributes[:remember]
     end
   end
 end
