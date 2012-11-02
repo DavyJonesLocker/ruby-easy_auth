@@ -14,7 +14,7 @@ module EasyAuth
   autoload :TokenGenerator
 
   def self.identity_model
-    EasyAuth::Identity
+    ::Identity
   end
 
   def self.account_model

@@ -5,7 +5,7 @@ module EasyAuth::Models::Account
 
   reverse_included do
     # Relationships
-    has_many :identities, :class_name => 'EasyAuth::Identity', :as => :account, :dependent => :destroy
+    has_many :identities, :class_name => 'Identity', :as => :account, :dependent => :destroy
 
     def identity_username_attribute
       self.send(self.class.identity_username_attribute)
