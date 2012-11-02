@@ -1,5 +1,6 @@
 module EasyAuth::Models::Identity
   include EasyAuth::TokenGenerator
+  include EasyAuth::ReverseConcern
 
   def self.included(base)
     base.class_eval do
