@@ -73,7 +73,7 @@ module EasyAuth::Controllers::Sessions
 
   def method_missing(method_name, *args)
     # Swallow exceptions for identity callbacks
-    unless method_name =~ /after_\w+_with_\w+/
+    unless method_name.to_s =~ /after_\w+_with_\w+/
       super
     end
   end
