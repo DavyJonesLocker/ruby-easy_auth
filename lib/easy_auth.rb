@@ -22,13 +22,13 @@ module EasyAuth
   end
 
   def self.authenticate(controller)
-    if identity_model = find_identity_model(controller)
+    if identity_model = find_identity_model(controller.params)
       identity_model.authenticate(controller)
     end
   end
 
   def self.new_session(controller)
-    identity_model = find_identity_model(controller)
+    identity_model = find_identity_model(controller.params)
     identity_model.new_session(controller)
   end
 
@@ -36,14 +36,15 @@ module EasyAuth
     yield self
   end
 
-  private
-
-  def self.find_identity_model(controller)
-    method_name = "#{controller.params[:identity]}_identity_model"
+  def self.find_identity_model(params)
+    method_name = "#{params[:identity]}_identity_model"
+    camelcased_identity_name = params[:identity].to_s.camelcase
     if respond_to?(method_name)
-      send(method_name, controller)
+      send(method_name, params)
+    elsif eval("defined?(Identities::#{camelcased_identity_name})")
+      eval("Identities::#{camelcased_identity_name}")
     else
-      controller.params[:identity].to_s.camelcase.constantize
+      camelcased_identity_name.constantize
     end
   end
 end

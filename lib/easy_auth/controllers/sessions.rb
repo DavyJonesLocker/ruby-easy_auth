@@ -14,7 +14,7 @@ module EasyAuth::Controllers::Sessions
       end
       after_successful_sign_in(identity)
     else
-      @identity = EasyAuth.find_identity_model(self).new(params[params[:identity]])
+      @identity = EasyAuth.find_identity_model(params).new(params[params[:identity]])
       after_failed_sign_in(@identity)
     end
   end
@@ -79,7 +79,7 @@ module EasyAuth::Controllers::Sessions
   end
 
   def set_remember(identity)
-    if identity_attributes = params[ActiveModel::Naming.param_key(EasyAuth.find_identity_model(self).new)]
+    if identity_attributes = params[ActiveModel::Naming.param_key(EasyAuth.find_identity_model(params).new)]
       identity.remember = identity_attributes[:remember]
     end
   end
