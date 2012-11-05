@@ -7,7 +7,7 @@ module EasyAuthHelper
 
   # Access the current account the users is authenticated with
   #
-  # @returns Account instance
+  # @return [Account] instance
   def current_account
     if session[:session_token] && session[:account_class]
       begin

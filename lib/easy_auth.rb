@@ -15,14 +15,14 @@ module EasyAuth
 
   # The top-level model that should be inherited from to build EasyAuth identities
   #
-  # @return Class
+  # @return [Class]
   def self.identity_model
     ::Identity
   end
 
   # The assumed account class
   #
-  # @return Class
+  # @return [Class]
   def self.account_model
     User
   end
@@ -30,7 +30,7 @@ module EasyAuth
   # Main authenticate method to delegate to the proper identity's .authenticate method
   # Should handle any redirects necessary
   #
-  # @params ActionController::Base
+  # @param [ActionController::Base] controller instance of the controller
   def self.authenticate(controller)
     if identity_model = find_identity_model(controller.params)
       identity_model.authenticate(controller)
@@ -40,7 +40,7 @@ module EasyAuth
   # Main new_session method to delegate to the proper identity's .new_session method
   # Should handle any redirects necessary
   #
-  # @params ActionController::Base
+  # @param [ActionController::Base] controller instance of the controller
   def self.new_session(controller)
     identity_model = find_identity_model(controller.params)
     identity_model.new_session(controller)
@@ -48,22 +48,22 @@ module EasyAuth
 
   # EasyAuth config
   #
-  # @params &block
+  # @param [&block] block
   def self.config(&block)
     yield self
   end
 
   # Find the proper identity model
   # Will use params[:identity] to first see if the identity's model method exists:
-  # 
+  #
   # i.e. password_identity_model
   #
-  # If that method doesn't exist, will see if Identities::#{camelcased_identity_name} is defined
+  # If that method doesn't exist, will see if `Identities::#{camelcased_identity_name}` is defined
   #
   # If that fails will finally check to see if the camelcased identity name exists in the top-leve namespace
   #
-  # @params Hash
-  # @returns Class
+  # @param [Hash] params must contain an `identity` key
+  # @return [Class]
   def self.find_identity_model(params)
     method_name = "#{params[:identity]}_identity_model"
     camelcased_identity_name = params[:identity].to_s.camelcase

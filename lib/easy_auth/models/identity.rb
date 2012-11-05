@@ -12,14 +12,14 @@ module EasyAuth::Models::Identity
   module ClassMethods
     # Base authentication method, should be implemented by child identities
     #
-    # @params ActionController::Base
+    # @param [ActionController::Base] controller instance of the controller
     def authenticate(controller = nil)
       raise NotImplementedError
     end
 
     # Base assumption for new sessions on the controller, will set `@identity` to a new instance of the identity
     #
-    # @params ActionController::Base
+    # @param [ActionController::Base] controller instance of the controller
     def new_session(controller)
       controller.instance_variable_set(:@identity, self.new)
     end
@@ -27,7 +27,7 @@ module EasyAuth::Models::Identity
 
   # Sets the session for the association account
   #
-  # @params Rack::Session::Abstract::SessionHash
+  # @param [Rack::Session::Abstract::SessionHash] session controller session
   def set_account_session(session)
     account.set_session(session)
   end
@@ -39,14 +39,14 @@ module EasyAuth::Models::Identity
 
   # Setter for the remember flag
   #
-  # @params Boolean
+  # @param [Boolean] value
   def remember=(value)
     @remember = ::ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
   end
 
   # Generates a new remember token and updates it on the identity record
   #
-  # @returns String
+  # @return [String]
   def generate_remember_token!
     update_column(:remember_token, _generate_token(:remember))
     remember_token
@@ -55,8 +55,8 @@ module EasyAuth::Models::Identity
   # The time used for remembering how long to stay signed in
   #
   # Defaults to 1 year, override in the model to set your own custom remember time
-  # 
-  # @returns DateTime
+  #
+  # @return [DateTime]
   def remember_time
     1.year
   end
