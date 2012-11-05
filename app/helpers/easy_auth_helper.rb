@@ -5,6 +5,9 @@ module EasyAuthHelper
     end
   end
 
+  # Access the current account the users is authenticated with
+  #
+  # @returns Account instance
   def current_account
     if session[:session_token] && session[:account_class]
       begin
@@ -29,11 +32,13 @@ module EasyAuthHelper
   end
   alias :current_user :current_account
 
+  # Should be used to test if user is authenticated
   def account_signed_in?
     current_account
   end
   alias :user_signed_in? :account_signed_in?
 
+  # Should be used to test if user is not authenticated
   def account_not_signed_in?
     !account_signed_in?
   end

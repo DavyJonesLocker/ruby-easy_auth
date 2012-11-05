@@ -13,6 +13,14 @@ module EasyAuth::Models::Account
   end
 
   module ClassMethods
+    # Will attempt to find the username attribute
+    #
+    # First will check to see if #identity_username_attribute is already defined in the model.
+    #
+    # If not, will check to see if `username` exists as a column on the record
+    # If not, will check to see if `email` exists as a column on the record
+    #
+    # @returns Symbol
     def identity_username_attribute
       if respond_to?(:super)
         super
@@ -26,11 +34,17 @@ module EasyAuth::Models::Account
     end
   end
 
+  # Generates a new session token and updates the record
+  #
+  # @returns String
   def generate_session_token!
     self.update_column(:session_token, _generate_token(:session))
     self.session_token
   end
 
+  # Used to set the session for the authenticated account
+  #
+  # @params Rack::Session::Abstract::SessionHash
   def set_session(session)
     session[:session_token] = generate_session_token!
     session[:account_class] = self.class.to_s
