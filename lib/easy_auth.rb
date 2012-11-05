@@ -69,8 +69,8 @@ module EasyAuth
     camelcased_identity_name = params[:identity].to_s.camelcase
     if respond_to?(method_name)
       send(method_name, params)
-    elsif eval("defined?(Identities::#{camelcased_identity_name})")
-      eval("Identities::#{camelcased_identity_name}")
+    elsif eval("::Identities::#{camelcased_identity_name} rescue nil")
+      eval("::Identities::#{camelcased_identity_name}")
     else
       camelcased_identity_name.constantize
     end
