@@ -14,5 +14,9 @@ class CreateEasyAuthIdentities < ActiveRecord::Migration
     [:username, :reset_token, :remember_token].each do |column|
       add_index :identities, column
     end
+
+    # modify this table name if you are using a model other than User
+    # for the account
+    add_column :users, :session_token, :string
   end
 end
