@@ -15,7 +15,6 @@ require 'capybara/rspec'
 require 'rspec/rails'
 require 'valid_attribute'
 require 'factory_girl_rails'
-require 'bourne'
 
 ENGINE_RAILS_ROOT=File.join(File.dirname(__FILE__), '../')
 
