@@ -7,6 +7,7 @@ module EasyAuth
   extend ActiveSupport::Autoload
 
   autoload :Controllers
+  autoload :Helpers
   autoload :Mailers
   autoload :Models
   autoload :ReverseConcern

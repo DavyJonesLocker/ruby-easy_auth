@@ -72,14 +72,4 @@ describe EasyAuth::Models::Account do
       end
     end
   end
-
-  describe '#generate_session_token!' do
-    it 'sets a unique session token' do
-      user = create(:user)
-      user.session_token.should be_nil
-      user.generate_session_token!
-      user = User.last
-      user.session_token.should_not be_nil
-    end
-  end
 end

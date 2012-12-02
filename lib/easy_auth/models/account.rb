@@ -33,20 +33,4 @@ module EasyAuth::Models::Account
       end
     end
   end
-
-  # Generates a new session token and updates the record
-  #
-  # @return [String]
-  def generate_session_token!
-    self.update_column(:session_token, _generate_token(:session))
-    self.session_token
-  end
-
-  # Used to set the session for the authenticated account
-  #
-  # @param [Rack::Session::Abstract::SessionHash] session controller session
-  def set_session(session)
-    session[:session_token] = generate_session_token!
-    session[:account_class] = self.class.to_s
-  end
 end

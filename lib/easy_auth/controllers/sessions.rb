@@ -6,53 +6,47 @@ module EasyAuth::Controllers::Sessions
   end
 
   def create
-    if identity = EasyAuth.authenticate(self)
-      identity.set_account_session(session)
-      set_remember(identity)
-      if identity.remember
-        cookies[:remember_token] = { :value => identity.generate_remember_token!, :expires => identity.remember_time.from_now }
-      end
-      after_successful_sign_in(identity)
+    if @identity = EasyAuth.authenticate(self)
+      session[:identity_id] = @identity.id
+      after_successful_sign_in
     else
       @identity = EasyAuth.find_identity_model(params).new(params[params[:identity]])
-      after_failed_sign_in(@identity)
+      after_failed_sign_in
     end
   end
 
   def destroy
-    session.delete(:session_token)
-    session.delete(:account_class)
-    cookies.delete(:remember_token)
+    session.delete(:identity_id)
     after_sign_out
   end
 
   private
 
-  def after_with_or_default(method_name, identity)
-    send("#{method_name}_with_#{params[:identity]}", identity) || send("#{method_name}_default", identity)
+  def after_with_or_default(method_name)
+    send("#{method_name}_with_#{params[:identity]}") || send("#{method_name}_default")
   end
 
-  def after_successful_sign_in(identity)
-    after_with_or_default(__method__, identity)
+  def after_successful_sign_in
+    after_with_or_default(__method__)
   end
 
-  def after_successful_sign_in_url(identity)
-    after_with_or_default(__method__, identity)
+  def after_successful_sign_in_url
+    after_with_or_default(__method__)
   end
 
-  def after_failed_sign_in(identity)
-    after_with_or_default(__method__, identity)
+  def after_failed_sign_in
+    after_with_or_default(__method__)
   end
 
-  def after_successful_sign_in_default(identity)
-    redirect_to(session.delete(:requested_path) || after_successful_sign_in_url(identity), :notice => I18n.t('easy_auth.sessions.create.notice'))
+  def after_successful_sign_in_default
+    redirect_to(session.delete(:requested_path) || after_successful_sign_in_url, :notice => I18n.t('easy_auth.sessions.create.notice'))
   end
 
-  def after_successful_sign_in_url_default(identity)
-    identity.account
+  def after_successful_sign_in_url_default
+    @identity.account
   end
 
-  def after_failed_sign_in_default(identity)
+  def after_failed_sign_in_default
     flash.now[:error] = I18n.t('easy_auth.sessions.create.error')
     render :new
   end
@@ -75,12 +69,6 @@ module EasyAuth::Controllers::Sessions
     # Swallow exceptions for identity callbacks
     unless method_name.to_s =~ /after_\w+_with_\w+/
       super
-    end
-  end
-
-  def set_remember(identity)
-    if identity_attributes = params[ActiveModel::Naming.param_key(EasyAuth.find_identity_model(params).new)]
-      identity.remember = identity_attributes[:remember]
     end
   end
 end

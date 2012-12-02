@@ -18,22 +18,17 @@ ActiveRecord::Schema.define(:version => 20120227014023) do
     t.string   "token"
     t.string   "account_type"
     t.integer  "account_id"
-    t.string   "reset_token"
-    t.string   "remember_token"
     t.string   "type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
-  add_index "identities", ["remember_token"], :name => "index_identities_on_remember_token"
-  add_index "identities", ["reset_token"], :name => "index_identities_on_reset_token"
   add_index "identities", ["username"], :name => "index_identities_on_username"
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "session_token"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

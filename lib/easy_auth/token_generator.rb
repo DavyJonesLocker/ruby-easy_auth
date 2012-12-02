@@ -2,6 +2,6 @@ module EasyAuth::TokenGenerator
   private
 
   def _generate_token(type)
-    token = BCrypt::Password.create("#{id}-#{type}_token-#{DateTime.current}")
+    token = Digest::SHA2.hexdigest("#{id}-#{type}_token-#{DateTime.current}")
   end
 end

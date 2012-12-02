@@ -1,7 +1,3 @@
 <%= form_for @identity, :url => sign_in_path do |f| %>
-  <p>
-    <%= f.label :remember, "Remember for #{@identity.remember_time.inspect}" %>
-    <%= f.check_box :remember %>
-  </p>
   <%= f.submit 'Sign in' %>
 <% end %>
