@@ -1,36 +1,8 @@
 module EasyAuth::Models::Account
-  include EasyAuth::TokenGenerator
   extend  EasyAuth::ReverseConcern
-  class   NoIdentityUsernameError < StandardError; end
 
   reverse_included do
     # Relationships
     has_many :identities, :class_name => 'Identity', :as => :account, :dependent => :destroy
-
-    def identity_username_attribute
-      self.send(self.class.identity_username_attribute)
-    end
-  end
-
-  module ClassMethods
-    # Will attempt to find the username attribute
-    #
-    # First will check to see if #identity_username_attribute is already defined in the model.
-    #
-    # If not, will check to see if `username` exists as a column on the record
-    # If not, will check to see if `email` exists as a column on the record
-    #
-    # @return [Symbol]
-    def identity_username_attribute
-      if respond_to?(:super)
-        super
-      elsif column_names.include?('username')
-        :username
-      elsif column_names.include?('email')
-        :email
-      else
-        raise EasyAuth::Models::Account::NoIdentityUsernameError, 'your model must have either a #username or #email attribute. Or you must override the .identity_username_attribute class method'
-      end
-    end
   end
 end

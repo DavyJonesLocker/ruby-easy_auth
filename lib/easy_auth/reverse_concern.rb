@@ -9,8 +9,8 @@ module EasyAuth::ReverseConcern
       return false
     else
       return false if base < self
-      base.class_eval(&@_included_block) if instance_variable_defined?("@_included_block")
       base.extend const_get("ClassMethods") if const_defined?("ClassMethods")
+      base.class_eval(&@_included_block) if instance_variable_defined?("@_included_block")
       @_dependencies.each { |dep| base.send(:include, dep) }
       super
     end
