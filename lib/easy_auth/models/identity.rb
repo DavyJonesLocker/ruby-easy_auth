@@ -4,6 +4,7 @@ module EasyAuth::Models::Identity
   def self.included(base)
     base.class_eval do
       belongs_to :account, :polymorphic => true
+      validates :username, :uniqueness => { :scope => :type }, :presence => true
       extend ClassMethods
     end
   end
