@@ -20,8 +20,6 @@ module EasyAuth::Controllers::Sessions
     after_sign_out
   end
 
-  private
-
   def after_with_or_default(method_name)
     send("#{method_name}_with_#{params[:identity]}") || send("#{method_name}_default")
   end
