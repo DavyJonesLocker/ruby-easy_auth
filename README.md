@@ -4,7 +4,7 @@
 [![Dependency Status](https://gemnasium.com/dockyard/easy_auth.png?travis)](https://gemnasium.com/dockyard/easy_auth)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/dockyard/easy_auth)
 
-Dead simple drop in authentication for Rails
+Dead simple drop in authentication for Rails 3.2+
 
 ## Installation ##
 
@@ -47,8 +47,14 @@ Your application is now ready for EasyAuth.
 ## Usage ##
 
 You will need to use one of the many
-[plugins](https://github.com/dockyard/easy_auth/wiki/Plugins) available for EasyAuth to
-provide a specific authentication strategy.
+[plugins](https://github.com/dockyard/easy_auth/wiki/Plugins) available for EasyAuth to provide a specific authentication strategy.
+
+## What you get ##
+
+You `User` model will be setup with an association to `identities`. The modeling is pretty simple:
+
+![EasyAuth Identity Modeling](http://i.imgur.com/LBafe.png)
+
 
 ## Authors ##
 
