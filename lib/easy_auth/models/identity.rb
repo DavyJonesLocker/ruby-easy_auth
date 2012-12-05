@@ -1,12 +1,9 @@
 module EasyAuth::Models::Identity
-  include EasyAuth::ReverseConcern
+  extend EasyAuth::ReverseConcern
 
-  def self.included(base)
-    base.class_eval do
-      belongs_to :account, :polymorphic => true
-      validates :username, :uniqueness => { :scope => :type }, :presence => true
-      extend ClassMethods
-    end
+  reverse_included do
+    belongs_to :account, :polymorphic => true
+    validates :username, :uniqueness => { :scope => :type }, :presence => true
   end
 
   module ClassMethods
