@@ -3,7 +3,7 @@ module EasyAuth::Models::Identity
 
   reverse_included do
     belongs_to :account, :polymorphic => true
-    validates :username, :uniqueness => { :scope => :type }, :presence => true
+    validates :uid, :uniqueness => { :scope => :type }, :presence => true
   end
 
   module ClassMethods

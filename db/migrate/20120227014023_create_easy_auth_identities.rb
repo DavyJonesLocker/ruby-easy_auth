@@ -1,7 +1,7 @@
 class CreateEasyAuthIdentities < ActiveRecord::Migration
   def change
     create_table :identities do |t|
-      t.string  :username
+      t.string  :uid
       t.string  :token
       t.string  :account_type
       t.integer :account_id
@@ -9,6 +9,6 @@ class CreateEasyAuthIdentities < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :identities, :username
+    add_index :identities, :uid
   end
 end
