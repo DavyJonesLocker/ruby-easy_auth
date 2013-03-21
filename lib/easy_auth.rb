@@ -1,5 +1,4 @@
 require 'active_support'
-require 'bcrypt'
 require 'easy_auth/engine'
 require 'easy_auth/version'
 
