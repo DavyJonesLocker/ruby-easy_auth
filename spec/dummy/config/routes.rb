@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   def easy_auth_test_identity_routes
-    get  '/sign_in'  => 'sessions#new',    :as => :sign_in, :defaults => { :identity => :test_identity }
-    post '/sign_in'  => 'sessions#create', :defaults => { :identity => :test_identity }
+    get  '/sign_in'  => 'sessions#new',    :as => :sign_in, :defaults => { :identity => 'test_identity' }
+    post '/sign_in'  => 'sessions#create', :defaults => { :identity => 'test_identity' }
   end
 
   easy_auth_routes
