@@ -1,7 +1,7 @@
 module EasyAuth::Models::Identity
-  extend EasyAuth::ReverseConcern
+  extend ActiveSupport::Concern
 
-  reverse_included do
+  included do
     belongs_to :account, :polymorphic => true
     validates :uid, :uniqueness => { :scope => :type }, :presence => true
   end

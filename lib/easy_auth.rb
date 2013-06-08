@@ -1,6 +1,7 @@
 require 'active_support'
 require 'easy_auth/engine'
 require 'easy_auth/version'
+require 'easy_auth/active_support/concern'
 
 module EasyAuth
   extend ActiveSupport::Autoload
@@ -9,7 +10,6 @@ module EasyAuth
   autoload :Helpers
   autoload :Mailers
   autoload :Models
-  autoload :ReverseConcern
   autoload :Routes
   autoload :TokenGenerator
 

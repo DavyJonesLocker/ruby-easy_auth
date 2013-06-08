@@ -1,7 +1,7 @@
 module EasyAuth::Controllers::Authenticated
-  extend EasyAuth::ReverseConcern
+  extend ActiveSupport::Concern
 
-  reverse_included do
+  included do
     before_filter :attempt_to_authenticate
   end
 

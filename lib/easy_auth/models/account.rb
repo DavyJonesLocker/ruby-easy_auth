@@ -1,7 +1,7 @@
 module EasyAuth::Models::Account
-  extend  EasyAuth::ReverseConcern
+  extend ActiveSupport::Concern
 
-  reverse_included do
+  included do
     # Relationships
     has_many :identities, :class_name => 'Identity', :as => :account, :dependent => :destroy
   end

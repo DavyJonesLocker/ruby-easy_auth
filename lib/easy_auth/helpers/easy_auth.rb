@@ -1,5 +1,5 @@
 module EasyAuth::Helpers::EasyAuth
-  extend EasyAuth::ReverseConcern
+  extend ActiveSupport::Concern
 
   def self.included(base)
     base.class_eval do

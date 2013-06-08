@@ -1,5 +1,5 @@
 module EasyAuth::Controllers::Sessions
-  extend EasyAuth::ReverseConcern
+  extend ActiveSupport::Concern
 
   def new
     EasyAuth.new_session(self)

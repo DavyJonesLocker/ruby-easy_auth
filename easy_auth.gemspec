@@ -15,9 +15,9 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*'] + ['Rakefile', 'README.md']
 
-  s.required_ruby_version = '> 2.0'
+  s.required_ruby_version = '>= 2.0'
 
-  s.add_dependency 'rails',       '~> 4.0.0.beta1'
+  s.add_dependency 'rails',    '~> 4.0.0.beta1'
 
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rspec-rails'
