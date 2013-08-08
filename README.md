@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/dockyard/easy_auth.png?branch=master)](http://travis-ci.org/dockyard/easy_auth)
 [![Dependency Status](https://gemnasium.com/dockyard/easy_auth.png?travis)](https://gemnasium.com/dockyard/easy_auth)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/dockyard/easy_auth)
+[![Code Climate](https://codeclimate.com/github/dockyard/easy_auth.png)](https://codeclimate.com/github/dockyard/easy_auth)
 
 Dead simple drop in authentication for Rails 3.2+
 
