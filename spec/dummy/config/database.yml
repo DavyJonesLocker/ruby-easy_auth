@@ -11,6 +11,10 @@ test:
   encoding: unicode
   database: easy_auth_test
   pool: 5
+<% if ENV['TRAVIS'] %>
+  username: postgres
+<% else %>
   username:
+<% end %>
   password:
   min_messages: warning
