@@ -4,9 +4,5 @@ rvm:
 before_script:
   - psql -c 'create database easy_auth_test;' -U postgres
   - bundle exec rake db:migrate
-  - wget http://phantomjs.googlecode.com/files/phantomjs-1.7.0-linux-i686.tar.bz2
-  - tar -xf phantomjs-1.7.0-linux-i686.tar.bz2
-  - sudo rm -rf /usr/local/phantomjs
-  - sudo mv phantomjs-1.7.0-linux-i686 /usr/local/phantomjs
 
 env: RAILS_ENV=test
