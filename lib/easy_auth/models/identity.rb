@@ -1,9 +1,12 @@
+require 'postgres_ext'
+require 'easy_auth/active_record/validations/array_uniqueness'
+
 module EasyAuth::Models::Identity
   extend ActiveSupport::Concern
 
   included do
     belongs_to :account, :polymorphic => true
-    validates :uid, :uniqueness => { :scope => :type }, :presence => true
+    validates :uid, :array_uniqueness => { :scope => :type, array: true }, :presence => true
   end
 
   module ClassMethods
