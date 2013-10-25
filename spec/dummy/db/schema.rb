@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20120227014023) do
     t.datetime "updated_at"
   end
 
-  add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree
+  add_index "identities", ["uid"], name: "index_identities_on_uid", using: :gin
 
   create_table "users", force: true do |t|
     t.string   "email"
