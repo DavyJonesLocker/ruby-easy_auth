@@ -9,6 +9,6 @@ class CreateEasyAuthIdentities < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :identities, :uid
+    add_index :identities, :uid, using: :gin
   end
 end
