@@ -50,7 +50,11 @@ module EasyAuth::Controllers::Sessions
   end
 
   def after_sign_out
-    redirect_to main_app.root_url, :notice => I18n.t('easy_auth.sessions.delete.notice')
+    redirect_to after_sign_out_url, :notice => I18n.t('easy_auth.sessions.delete.notice')
+  end
+
+  def after_sign_out_url
+    main_app.root_url
   end
 
   def no_authentication
