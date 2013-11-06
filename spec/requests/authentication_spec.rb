@@ -28,4 +28,14 @@ feature 'Unauthenticated' do
     get profile_path(:format => :json)
     response.status.should eq 401
   end
+
+  scenario 'redirects to request referer on successful sign in for non GET request' do
+    create(:user)
+    visit landings_path
+    click_button 'Submit Authenticated Post'
+
+    click_button 'Sign in'
+
+    current_path.should eq landings_path
+  end
 end

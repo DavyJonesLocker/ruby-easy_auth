@@ -8,5 +8,8 @@ Rails.application.routes.draw do
 
   get '/profile'   => 'profile#show',   :as => :profile
   get '/dashboard' => 'dashboard#show', :as => :dashboard
+
+  post '/authenticated_posts'     => 'authenticated_posts#create'
+  get '/landings'                 => 'landing#index'
   root :to => 'landing#show'
 end

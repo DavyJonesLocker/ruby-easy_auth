@@ -37,7 +37,8 @@ module EasyAuth::Controllers::Sessions
   end
 
   def after_successful_sign_in_default
-    redirect_to(session.delete(:requested_path) || after_successful_sign_in_url, :notice => I18n.t('easy_auth.sessions.create.notice'))
+    redirect_to(session.delete(:redirect_path) || after_successful_sign_in_url,
+               :notice => I18n.t('easy_auth.sessions.create.notice'))
   end
 
   def after_successful_sign_in_url_default
