@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   get '/dashboard' => 'dashboard#show', :as => :dashboard
 
   post '/authenticated_posts'     => 'authenticated_posts#create'
-  get '/landings'                 => 'landing#index'
+  get '/unauthenticated'          => 'unauthenticated#show'
   root :to => 'landing#show'
 end

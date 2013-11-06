@@ -1,8 +1,5 @@
 class LandingController < ApplicationController
-  before_filter :redirect_to_dashboard_if_signed_in, only: [:show]
-
-  def index
-  end
+  before_filter :redirect_to_dashboard_if_signed_in
 
   private
 
