@@ -1,1 +1,7 @@
-<%= button_to 'Submit Authenticated Post', authenticated_posts_path, method: :post %>
+<%= form_for @authenticated_post do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :password %>
+  <%= f.text_field :password %>
+  <%= f.submit %>
+<% end %>

@@ -5,7 +5,8 @@ module EasyAuth::Helpers::EasyAuth
     base.class_eval do
       def self.included(base)
         base.class_eval do
-          helper_method :current_account, :current_user, :account_signed_in?, :user_signed_in?, :account_not_signed_in?, :user_not_signed_in?
+          helper_method :current_account, :current_user, :account_signed_in?, :user_signed_in?, :account_not_signed_in?, :user_not_signed_in?, :unstash_params
+          before_action :unstash_params
         end
       end
     end
@@ -44,5 +45,11 @@ module EasyAuth::Helpers::EasyAuth
 
   def delete_session_data
     session.delete(:identity_id)
+  end
+
+  def unstash_params
+    unless self.class == SessionsController
+      params.merge!(session.delete(:stashed_params)) if session[:stashed_params]
+    end
   end
 end
