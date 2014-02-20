@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 # Only install appropriate ruby debugger if we are not on travis
 gemspec
