@@ -13,11 +13,8 @@
 
 ActiveRecord::Schema.define(version: 20120227014023) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "identities", force: true do |t|
-    t.string   "uid",          default: [], array: true
+    t.string   "uid"
     t.string   "token"
     t.string   "account_type"
     t.integer  "account_id"
@@ -26,7 +23,7 @@ ActiveRecord::Schema.define(version: 20120227014023) do
     t.datetime "updated_at"
   end
 
-  add_index "identities", ["uid"], name: "index_identities_on_uid", using: :gin
+  add_index "identities", ["uid"], name: "index_identities_on_uid"
 
   create_table "users", force: true do |t|
     t.string   "email"
