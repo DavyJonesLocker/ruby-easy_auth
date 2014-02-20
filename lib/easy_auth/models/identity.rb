@@ -4,6 +4,7 @@ module EasyAuth::Models::Identity
   included do
     belongs_to :account, polymorphic: true, dependent: :destroy, autosave: true, validate: true
     validates :uid, :uniqueness => { :scope => :type }, :presence => true
+    validates :token, presence: true
   end
 
   module ClassMethods
