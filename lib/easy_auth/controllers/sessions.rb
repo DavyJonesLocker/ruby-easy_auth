@@ -13,6 +13,7 @@ module EasyAuth::Controllers::Sessions
       @identity = EasyAuth.find_identity_model(params).new(params[params[:identity]])
       after_failed_sign_in
     end
+  rescue AbstractController::DoubleRenderError
   end
 
   def destroy
