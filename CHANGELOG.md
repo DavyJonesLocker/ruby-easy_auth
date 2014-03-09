@@ -6,3 +6,4 @@
 * Identities are always autosave
 * Identities will require validation for parent to save
 * Identities require presence of token
+* Accounts accept nested attributes for identities
