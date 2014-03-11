@@ -1,3 +1,7 @@
+### EasyAuth 0.3.2
+
+* Redirect to `request.fullpath` after successful sign-in
+
 ### EasyAuth 0.3.1
 
 * Remove dependent -> destroy inifinite loop
