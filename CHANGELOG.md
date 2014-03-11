@@ -1,3 +1,7 @@
+### EasyAuth 0.3.1
+
+* Remove dependent -> destroy inifinite loop
+
 ### EasyAuth 0.3.0
 
 * Reverted array identities

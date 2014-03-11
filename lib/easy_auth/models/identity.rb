@@ -2,7 +2,7 @@ module EasyAuth::Models::Identity
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :account, polymorphic: true, dependent: :destroy, autosave: true, validate: true
+    belongs_to :account, polymorphic: true, autosave: true, validate: true
     validates :uid, :uniqueness => { :scope => :type }, :presence => true
     validates :token, presence: true
   end
