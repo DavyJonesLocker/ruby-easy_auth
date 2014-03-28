@@ -1,3 +1,7 @@
+### EasyAuth 0.3.3
+
+* Remove gin index
+
 ### EasyAuth 0.3.2
 
 * Redirect to `request.fullpath` after successful sign-in
