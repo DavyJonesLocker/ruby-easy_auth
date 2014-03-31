@@ -1,3 +1,7 @@
+### EasyAuth 0.3.4
+
+* Moved `AuthenticatedController#attempt_to_authenticate` into
+  `EasyAuthHelper` for general use.
 ### EasyAuth 0.3.3
 
 * Remove gin index
