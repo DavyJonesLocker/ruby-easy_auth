@@ -49,6 +49,8 @@ Your application is now ready for EasyAuth.
 You will need to use one of the many
 [plugins](https://github.com/dockyard/easy_auth/wiki/Plugins) available for EasyAuth to provide a specific authentication strategy.
 
+For locales take a look on [locales wiki page](https://github.com/dockyard/easy_auth/wiki/Locales).
+
 ## What you get ##
 
 You `User` model will be setup with an association to `identities`. The modeling is pretty simple:
